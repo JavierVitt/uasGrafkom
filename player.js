@@ -12,6 +12,8 @@ export class Player{
         this.rotationVector = new THREE.Vector3(0,0,0);
         this.animations = {};
         this.lastRotation = 0;
+        this.jumpCD = 0;
+        
 
         this.camera.setup(new THREE.Vector3(0,0,0), this.rotationVector);
 
@@ -30,8 +32,8 @@ export class Player{
 
     loadModel(){
         var loader = new FBXLoader();
-        loader.setPath('./resources/Knight/');
-        loader.load('Dwarf Idle.fbx', (fbx) => {
+        loader.setPath('./resources/Action Adventure Pack/');
+        loader.load('CH46_nonPBR.fbx', (fbx) => {
             fbx.scale.setScalar(0.01);
             fbx.traverse(c => {
               c.castShadow = true;
@@ -53,9 +55,10 @@ export class Player{
             };
 
             const loader = new FBXLoader();
-            loader.setPath('./resources/Knight/');
-            loader.load('Dwarf Idle.fbx', (fbx) => { onLoad('idle', fbx) });
-            loader.load('Sword And Shield Run.fbx', (fbx) => { onLoad('run', fbx) });
+            loader.setPath('./resources/Action Adventure Pack/');
+            loader.load('idle.fbx', (fbx) => { onLoad('idle', fbx) });
+            loader.load('running.fbx', (fbx) => { onLoad('run', fbx) });
+            loader.load('jumping up.fbx', (fbx) => { onLoad('jump', fbx) });
 
             
         });
@@ -63,9 +66,25 @@ export class Player{
     }
 
     update(dt){
+        this.jumpCD -= dt;
+
         if(this.mesh && this.animations){
         this.lastRotation = this.mesh.rotation.y;
         var direction = new THREE.Vector3(0,0,0);
+
+        // console.log(dt);
+
+        // gravity
+        if(this.mesh.position.y > 0){
+            // if (this.animations['jump']) {
+            //     if (this.state != "jump") {
+            //         this.mixer.stopAllAction();
+            //         this.state = "jump";
+            //     }
+            //     this.mixer.clipAction(this.animations['jump'].clip).play();
+            // }
+            direction.y -= 0.35;
+        }
 
         if(this.controller.keys['forward']){
             direction.x = 1;
@@ -83,8 +102,13 @@ export class Player{
             direction.z = 1;
             this.mesh.rotation.y = 0;
         }
+
+        if(this.controller.keys['jump'] && this.jumpCD <= 0){
+            this.jumpCD = 0.5;
+            direction.y += 5;
+        }
         this.lastRotation = this.mesh.rotation.y;
-        console.log(direction.length())
+        // console.log(direction.length())
         if(direction.length() == 0){
             if(this.animations['idle']){
                 if(this.state != "idle"){
@@ -93,14 +117,27 @@ export class Player{
                 } 
                 this.mixer.clipAction(this.animations['idle'].clip).play();
             }
-        }else{
-            if(this.animations['run']){
-                if(this.state != "run"){
-                    this.mixer.stopAllAction();
-                    this.state = "run";
+        }
+        else{
+            if(this.mesh.position.y > 0){
+                if (this.animations['jump']) {
+                    if (this.state != "jump") {
+                        this.mixer.stopAllAction();
+                        this.state = "jump";
+                    }
+                    this.mixer.clipAction(this.animations['jump'].clip).play();
                 }
-                this.mixer.clipAction(this.animations['run'].clip).play();
             }
+            else{
+                if (this.animations['run']) {
+                    if (this.state != "run") {
+                        this.mixer.stopAllAction();
+                        this.state = "run";
+                    }
+                    this.mixer.clipAction(this.animations['run'].clip).play();
+                }
+            }
+           
         }
 
         if(this.controller.mouseDown)
@@ -117,11 +154,14 @@ export class Player{
 
         var forwardVector = new THREE.Vector3(1,0,0);
         var rightVector = new THREE.Vector3(0,0,1);
+        var upVector = new THREE.Vector3(0,1,0);
         forwardVector.applyAxisAngle(new THREE.Vector3(0,1,0), this.rotationVector.y);
         rightVector.applyAxisAngle(new THREE.Vector3(0,1,0), this.rotationVector.y);
+        upVector.applyAxisAngle(new THREE.Vector3(0, 1, 0), this.rotationVector.y);
 
         this.mesh.position.add(forwardVector.multiplyScalar(dt*this.speed*direction.x));
         this.mesh.position.add(rightVector.multiplyScalar(dt*this.speed*direction.z));
+        this.mesh.position.add(upVector.multiplyScalar(dt * this.speed * direction.y));
         
         this.camera.setup(this.mesh.position, this.rotationVector);
 
@@ -141,16 +181,27 @@ export class PlayerController{
             "forward": false,
             "backward": false,
             "left": false,
-            "right": false
+            "right": false,
+            "jump": false
         }
         this.mousePos = new THREE.Vector2();
         this.mouseDown = false;
         this.deltaMousePos = new THREE.Vector2();
+        this.y = 0;
         document.addEventListener('keydown', (e) => this.onKeyDown(e), false);
         document.addEventListener('keyup', (e) => this.onKeyUp(e), false);
         document.addEventListener('mousemove', (e) => this.onMouseMove(e), false);
         document.addEventListener('mousedown', (e) => this.onMouseDown(e), false);
         document.addEventListener('mouseup', (e) => this.onMouseUp(e), false);
+    }
+    countJump(check){
+        this.y = check;
+
+
+        if(this.y <= 1.5){
+            return true;
+        }
+        return false;
     }
     onMouseDown(event){
         this.mouseDown = true;
@@ -166,6 +217,7 @@ export class PlayerController{
         this.deltaMousePos.addVectors(currentMousePos, this.mousePos.multiplyScalar(-1)); 
         this.mousePos.copy(currentMousePos);
     }
+    
     onKeyDown(event){
         switch(event.keyCode){
             case "W".charCodeAt(0):
@@ -183,6 +235,13 @@ export class PlayerController{
             case "D".charCodeAt(0):
             case "d".charCodeAt(0):
                 this.keys['right'] = true;
+                break;
+            case " ".charCodeAt(0):
+            case " ".charCodeAt(0):
+                // console.log(this.mesh.position.y);
+                if(this.y == 0){
+                    this.keys['jump'] = true;
+                }
                 break;
         }
     }
@@ -203,6 +262,10 @@ export class PlayerController{
             case "D".charCodeAt(0):
             case "d".charCodeAt(0):
                 this.keys['right'] = false;
+                break;
+            case " ".charCodeAt(0):
+            case " ".charCodeAt(0):
+                this.keys['jump'] = false;
                 break;
         }    
     }

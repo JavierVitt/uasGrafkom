@@ -52,7 +52,7 @@ class Main{
         // ThirdPersonCamera
         this.player = new Player(
             new ThirdPersonCamera(
-                this.camera, new THREE.Vector3(-5,2,0), new THREE.Vector3(0,0,0)
+                this.camera, new THREE.Vector3(-3,1,0), new THREE.Vector3(0,1,0)
             ),
             new PlayerController(),
             this.scene,
