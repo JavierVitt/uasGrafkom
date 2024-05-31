@@ -44,9 +44,9 @@ moon.scale.set(0.5,0.5,0.5);
 
 // Plane 
 var planeGeo = new THREE.PlaneGeometry(500,500);
-var planeMat = new THREE.MeshPhongMaterial({color: 0x555555});
+var planeMat = new THREE.MeshPhongMaterial({color: 0x008000});
 var plane = new THREE.Mesh(planeGeo, planeMat); 
-plane.position.set(0,-3,0);
+plane.position.set(0,-1,0);
 scene.add(plane);
 
 //Ambient Light
@@ -78,7 +78,7 @@ earth.add(spotLight.target);
 // loop animate
 function animate() {
     renderer.setClearColor(0x000000);
-    plane.rotation.x = 5    ;
+    plane.rotation.x = 5;
     sun.rotation.z += 0.01;
     earth.rotation.z += 0.02;
     renderer.render(scene, camera);
