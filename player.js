@@ -58,7 +58,7 @@ export class Player{
             loader.setPath('./resources/Action Adventure Pack/');
             loader.load('idle.fbx', (fbx) => { onLoad('idle', fbx) });
             loader.load('Slow Run (1).fbx', (fbx) => { onLoad('run', fbx) });
-            loader.load('jumping up.fbx', (fbx) => { onLoad('jump', fbx) });
+            loader.load('Jumping.fbx', (fbx) => { onLoad('jump', fbx) });
 
             
         });
