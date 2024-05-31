@@ -14,23 +14,14 @@ export class obj {
     };
 
     loadModel(filepath, x, y, z, scale, rotx, roy, rotz) {
-
-        object.traverse(function (child) {
-
-            if (child.isMesh) child.material.map = texture;
-
-        });
-
-        object.position.y = - 0.95;
-        object.scale.setScalar(0.01);
-        const loader = new OBJLoader(manager);
-        loader.load(filepath, function (obj) {
-            object = obj;
-        }, onProgress, onError);
-        scene.add(object);
-        object.position.set(x, y, z);
-        object.scale.set(scale, scale, scale);
-        object.rotation.set(rotx, roy, rotz);
-        render();
+        this.mesh = new THREE.Mesh(
+            new new OBJLoader().load(filepath)
+        );
+        this.scene.add(this.mesh);
+        this.mesh.castShadow = true;
+        this.mesh.receiveShadow = true;
+        this.mesh.position.set(x, y, z);
+        this.mesh.scale.set(scale, scale, scale);
+        this.mesh.rotation.set(rotx, roy, rotz);
     }
 }
