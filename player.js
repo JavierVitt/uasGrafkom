@@ -57,8 +57,9 @@ export class Player{
             const loader = new FBXLoader();
             loader.setPath('./resources/Action Adventure Pack/');
             loader.load('idle.fbx', (fbx) => { onLoad('idle', fbx) });
-            loader.load('Slow Run (1).fbx', (fbx) => { onLoad('run', fbx) });
-            loader.load('Jumping.fbx', (fbx) => { onLoad('jump', fbx) });
+            loader.load('Fast Run.fbx', (fbx) => { onLoad('run', fbx) });
+            loader.load('jumping up.fbx', (fbx) => { onLoad('jump', fbx) });
+            loader.load('run to stop.fbx', (fbx) => { onLoad('runToStop', fbx)});
 
             
         });
@@ -105,7 +106,7 @@ export class Player{
 
         if(this.controller.keys['jump'] && this.jumpCD <= 0){
             this.jumpCD = 0.5;
-            direction.y += 5;
+            direction.y += 6.1;
         }
         this.lastRotation = this.mesh.rotation.y;
         // console.log(direction.length())
@@ -182,7 +183,8 @@ export class PlayerController{
             "backward": false,
             "left": false,
             "right": false,
-            "jump": false
+            "jump": false,
+            "runtostop": false
         }
         this.mousePos = new THREE.Vector2();
         this.mouseDown = false;
@@ -250,6 +252,7 @@ export class PlayerController{
             case "W".charCodeAt(0):
             case "w".charCodeAt(0):
                 this.keys['forward'] = false;
+                console.log("W");
                 break;
             case "S".charCodeAt(0):
             case "s".charCodeAt(0):
