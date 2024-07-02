@@ -1,6 +1,10 @@
 import * as THREE from "three";
 import { Player, PlayerController, ThirdPersonCamera } from "./player.js";
+<<<<<<< Updated upstream
 import { fbx, obj } from "./environment.js";
+=======
+import { fbx, obj, objLamp, SMDModel} from "./environment.js";
+>>>>>>> Stashed changes
 
 
 class Main {
@@ -15,7 +19,7 @@ class Main {
         this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         this.renderer = new THREE.WebGLRenderer({ antialias: true, canvas: canvReference });
         this.renderer.setSize(window.innerWidth, window.innerHeight);
-        this.renderer.setClearColor(0x000000, 1);
+        this.renderer.setClearColor(0x555555, 1);
         this.renderer.shadowMap.enabled = true;
         const loader = new THREE.TextureLoader();
 
@@ -106,6 +110,7 @@ class Main {
 var clock = new THREE.Clock();
 Main.init();
 
+<<<<<<< Updated upstream
 new obj('./non-player asset/Park2/', 'bench_res.obj', 'bench_res.mtl', 1, 1, 1, 0, 0, 0, 0, -4.65, 0, Main.scene);
 new obj('./non-player asset/Park2/', 'bench_res.obj', 'bench_res.mtl', 1, 1, 1, 5, 0, 0, 0, 4.65, 0, Main.scene);
 new obj('./non-player asset/Park2/', 'acaciaTree.obj', 'acaciaTree.mtl', 0.01, 0.01, 0.01, 2.5, 0, 10, 0, 0, 0, Main.scene);
@@ -126,22 +131,99 @@ new obj('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.
 new obj('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, 10 , 0, -7, 0, 0, 0, Main.scene);
 new obj('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, -5, 0, -7, 0, 0, 0, Main.scene);
 new fbx('./non-player asset/grasses/', 'grass_03.fbx', 1.3, 1, 1.5, -4, 0, 5, 0, 4.7, 0, Main.scene);
+=======
+// new obj('./non-player asset/Park2/', 'bench_res.obj', 'bench_res.mtl', 1, 1, 1, 0, 0, 0, 0, -4.65, 0, Main.scene);
+// new obj('./non-player asset/Park2/', 'bench_res.obj', 'bench_res.mtl', 1, 1, 1, 5, 0, 0, 0, 4.65, 0, Main.scene);
+// new obj('./non-player asset/Park2/', 'acaciaTree.obj', 'acaciaTree.mtl', 0.01, 0.01, 0.01, 2.5, 0, 10, 0, 0, 0, Main.scene);
+// new obj('./non-player asset/Park2/', 'tire swing.obj', 'tire swing.mtl', 0.2, 0.2, 0.2, 2.5, 0, 0, 0, 4.67, 0, Main.scene);
+// new obj('./non-player asset/Park2/', 'tire swing.obj', 'tire swing.mtl', 0.2, 0.2, 0.2, 2.5, 0, 0, 0, 4.67, 0, Main.scene);
+// new obj('./non-player asset/Park2/', 'o5950.obj', 'o5950.mtl', 1.3, 1, 1.5, 10, 0, 0, 0, 4.7, 0, Main.scene);
+// new obj('./non-player asset/Park2/', 'o5950.obj', 'o5950.mtl', 1.3, 1, 1.5, 10, 0, 5, 0, 4.7, 0, Main.scene);
+// new obj('./non-player asset/Park2/', 'o5950.obj', 'o5950.mtl', 1.3, 1, 1.5, 10, 0, -5, 0, 4.7, 0, Main.scene);
+// new obj('./non-player asset/Park2/', 'o5950.obj', 'o5950.mtl', 1.3, 1, 1.5, -4, 0, 0, 0, 4.7, 0, Main.scene);
+// new obj('./non-player asset/Park2/', 'o5950.obj', 'o5950.mtl', 1.3, 1, 1.5, -4, 0, 5, 0, 4.7, 0, Main.scene);
+// new obj('./non-player asset/Park2/', 'o5950.obj', 'o5950.mtl', 1.3, 1, 1.5, -4, 0, -5, 0, 4.7, 0, Main.scene);
+// new obj('./non-player asset/Park2/', 'o5950.obj', 'o5950.mtl', 1.3, 1, 1.5, 5, 0, 6, 0, 0, 0, Main.scene);
+// new obj('./non-player asset/Park2/', 'o5950.obj', 'o5950.mtl', 1.3, 1, 1.5, 5, 0, -7.3, 0, 0, 0, Main.scene);
+// new obj('./non-player asset/Park2/', 'o5950.obj', 'o5950.mtl', 1.3, 1, 1.5, 0, 0, 6, 0, 0, 0, Main.scene);
+// new obj('./non-player asset/Park2/', 'o5950.obj', 'o5950.mtl', 1.3, 1, 1.5, 0, 0, -7.3, 0, 0, 0, Main.scene);
+// new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, 10, 0, 7, 0, 0, 0, Main.scene, 10);
+// new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, -5, 0, 7, 0, 0, 0, Main.scene, 10);
+// new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, 10 , 0, -7, 0, 0, 0, Main.scene, 10);
+// new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, -5, 0, -7, 0, 0, 0, Main.scene, 10);
+// new fbx('./non-player asset/grasses/', 'grass_03.fbx', 1.3, 1, 1.5, -4, 0, 5, 0, 4.7, 0, Main.scene);
+// var smd = new SMDModel('./non-player asset/Park2/', 'kappa_pond_bg.smd',5,5,5, 2,5,5, 0, 0, 0, Main.scene);
+
+//----------------------------------ARSITEKTUR TAMAN --------------------------------------------------------
+>>>>>>> Stashed changes
 
 var vertices = [];
 for (let i = 0; i < 360; i++) {
     var angleInRadians = (i * Math.PI) / 180;
-    var newX = 2.8 + Math.cos(angleInRadians) * 5; // X-coordinate remains the same
+    var newX = 2.8 + Math.cos(angleInRadians) * 20; // X-coordinate remains the same
     var newY = 0; // Rotate around X-axis
-    var newZ = 0 + Math.sin(angleInRadians) * 5; // Translate along Z-axis
+    var newZ = 0 + Math.sin(angleInRadians) * 20; // Translate along Z-axis
     vertices.push(newX);
     vertices.push(newY);
     vertices.push(newZ);
 }
+
 for (let i = 0; i < 360; i++) {
-    if(i%10 == 0){
-        var bambu =  new fbx('./non-player asset/Park1/Bamboo/', 'BlackBamboo.fbx', 0.03, 0.03, 0.03, vertices[i*3], vertices[i*3+1], vertices[i*3+2], 0, 0, 0, Main.scene);
+    if(i%6 == 0){
+        // new obj('./non-player asset/Park2/', 'tree_obj.obj', 'tree_mtl.mtl', 0.01, 0.02, 0.01, vertices[i*3], vertices[i*3+1]-0.01, vertices[i*3+2], 0, 0, 0, Main.scene);
     }
 }
+new obj('./non-player asset/Park2/', 'beergarden_bench.obj', 'beergarden_bench.mtl', 0.5, 0.8, 0.7, 0,0,8, 0, 1.52, 0, Main.scene);
+new obj('./non-player asset/Park2/', 'beergarden_bench.obj', 'beergarden_bench.mtl', 0.5, 0.8, 0.7, 0,0,-8, 0, 1.52, 0, Main.scene);
+new obj('./non-player asset/Park2/', 'beergarden_bench.obj', 'beergarden_bench.mtl', 0.5, 0.8, 0.7, 0,0,4, 0, 1.52, 0, Main.scene);
+new obj('./non-player asset/Park2/', 'beergarden_bench.obj', 'beergarden_bench.mtl', 0.5, 0.8, 0.7, 0,0,-4, 0, 1.52, 0, Main.scene);
+new obj('./non-player asset/Park2/', 'beergarden_bench.obj', 'beergarden_bench.mtl', 0.5, 0.8, 0.7, -4,0,4, 0, 1.52, 0, Main.scene);
+new obj('./non-player asset/Park2/', 'beergarden_bench.obj', 'beergarden_bench.mtl', 0.5, 0.8, 0.7, -4,0,-4, 0, 1.52, 0, Main.scene);
+new obj('./non-player asset/Park2/', 'beergarden_bench.obj', 'beergarden_bench.mtl', 0.5, 0.8, 0.7, -8,0,4, 0, 1.52, 0, Main.scene);
+new obj('./non-player asset/Park2/', 'beergarden_bench.obj', 'beergarden_bench.mtl', 0.5, 0.8, 0.7, -8,0,-4, 0, 1.52, 0, Main.scene);
+new obj('./non-player asset/Park2/', 'beergarden_bench.obj', 'beergarden_bench.mtl', 0.5, 0.8, 0.7, -8,0,8, 0, 1.52, 0, Main.scene);
+new obj('./non-player asset/Park2/', 'beergarden_bench.obj', 'beergarden_bench.mtl', 0.5, 0.8, 0.7, -8,0,-8, 0, 1.52, 0, Main.scene);
+new obj('./non-player asset/Park2/', 'beergarden_bench.obj', 'beergarden_bench.mtl', 0.5, 0.8, 0.7, -4,0,8, 0, 1.52, 0, Main.scene);
+new obj('./non-player asset/Park2/', 'beergarden_bench.obj', 'beergarden_bench.mtl', 0.5, 0.8, 0.7, -4,0,-8, 0, 1.52, 0, Main.scene);
+
+new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, 1 , 0, 0, 0, 0, 0, Main.scene, 20);
+new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, 3 , 0, 7, 0, 0, 0, Main.scene, 20);
+new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, 3 , 0, -7, 0, 0, 0, Main.scene, 20);
+new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, -7 , 0, 11, 0, 0, 0, Main.scene, 20);
+new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, -7 , 0, -11, 0, 0, 0, Main.scene, 20);
+new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, -17, 0, -2, 0, 0, 0, Main.scene, 20);
+new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, -17, 0, 2, 0, 0, 0, Main.scene, 20);
+new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, -14, 0, -2, 0, 0, 0, Main.scene, 20);
+new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, -14, 0, 2, 0, 0, 0, Main.scene, 20);
+new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, -11, 0, -2, 0, 0, 0, Main.scene, 20);
+new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, -11, 0, 2, 0, 0, 0, Main.scene, 20);
+
+new obj('./non-player asset/Park2/', 'Tori_02.obj', 'Tori_02.mtl', 0.017, 0.005, 0.01, -20, 0, 0, 0, 1.55, 0, Main.scene);
+
+new obj('./non-player asset/Park2/', 'pizza1.obj', 'pizza1.mtl', 1.2, 1.2, 1.2, 0, 0.8, -4.8, 0, 0, 0, Main.scene);
+
+new obj('./non-player asset/Park2/', 'Minion.obj', 'Minion.mtl', 0.5, 0.5, 0.5, 3, 0, 0, 0, 0, 0, Main.scene);
+
+//----------------------------------END OF ARSITEKTUR TAMAN--------------------------------------------------
+
+//Set lampu light
+
+
+// var vertices = [];
+// for (let i = 0; i < 360; i++) {
+//     var angleInRadians = (i * Math.PI) / 180;
+//     var newX = 2.8 + Math.cos(angleInRadians) * 5; // X-coordinate remains the same
+//     var newY = 0; // Rotate around X-axis
+//     var newZ = 0 + Math.sin(angleInRadians) * 5; // Translate along Z-axis
+//     vertices.push(newX);
+//     vertices.push(newY);
+//     vertices.push(newZ);
+// }
+// for (let i = 0; i < 360; i++) {
+//     if(i%10 == 0){
+//         var bambu =  new fbx('./non-player asset/Park1/Bamboo/', 'BlackBamboo.fbx', 0.03, 0.03, 0.03, vertices[i*3], vertices[i*3+1], vertices[i*3+2], 0, 0, 0, Main.scene);
+//     }
+// }
 
 const material = new THREE.MeshPhysicalMaterial({
     color: 0x00ff00,     // Warna hijau
