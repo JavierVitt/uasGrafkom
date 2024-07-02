@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import { Player, PlayerController, ThirdPersonCamera } from "./player.js";
-import { fbx, obj } from "./environment.js";
+import { fbx, obj, objLamp} from "./environment.js";
 
 
 class Main {
@@ -25,19 +25,20 @@ class Main {
         }, false);
 
         //Plane
-        const textureGround = loader.load('https://tse2.mm.bing.net/th/id/OIP.sJ6OJZFKB9tit_yzlAtbZgHaHa?rs=1&pid=ImgDetMain');
-        textureGround.colorSpace = THREE.SRGBColorSpace
-        textureGround.wrapS = THREE.RepeatWrapping;
-        textureGround.wrapT = THREE.RepeatWrapping;
-        textureGround.receiveShadow = true;
-        textureGround.castShadow = true;
-        const timesToRepeatHorizontally = 60;
-        const timesToRepeatVertically = 60;
-        textureGround.repeat.set(timesToRepeatHorizontally, timesToRepeatVertically);
+        // const textureGround = loader.load('https://tse2.mm.bing.net/th/id/OIP.sJ6OJZFKB9tit_yzlAtbZgHaHa?rs=1&pid=ImgDetMain');
+        // textureGround.colorSpace = THREE.SRGBColorSpace
+        // textureGround.wrapS = THREE.RepeatWrapping;
+        // textureGround.wrapT = THREE.RepeatWrapping;
+        // textureGround.receiveShadow = true;
+        // textureGround.castShadow = true;
+        // const timesToRepeatHorizontally = 60;
+        // const timesToRepeatVertically = 60;
+        // textureGround.repeat.set(timesToRepeatHorizontally, timesToRepeatVertically);
 
-        const geometry = new THREE.PlaneGeometry(100, 100)
+        const geometry = new THREE.PlaneGeometry(60, 60)
         const material = new THREE.MeshPhongMaterial({
-            map: textureGround
+            color: 0x444aa22,
+            // map: textureGround
         });
         var plane = new THREE.Mesh(geometry, material);
         plane.rotation.x = - Math.PI / 2;
@@ -56,7 +57,7 @@ class Main {
         var ambientLight = new THREE.AmbientLight(0xDDEEFF, 0.75);
         this.scene.add(ambientLight);
 
-        //Directional Light
+        //Cahaya Langit
         var directionalLight = new THREE.DirectionalLight(0xFFFFFF, 1);
         directionalLight.position.set(3, 10, 10);
         directionalLight.castShadow = true;
@@ -121,11 +122,15 @@ new obj('./non-player asset/Park2/', 'o5950.obj', 'o5950.mtl', 1.3, 1, 1.5, 5, 0
 new obj('./non-player asset/Park2/', 'o5950.obj', 'o5950.mtl', 1.3, 1, 1.5, 5, 0, -7.3, 0, 0, 0, Main.scene);
 new obj('./non-player asset/Park2/', 'o5950.obj', 'o5950.mtl', 1.3, 1, 1.5, 0, 0, 6, 0, 0, 0, Main.scene);
 new obj('./non-player asset/Park2/', 'o5950.obj', 'o5950.mtl', 1.3, 1, 1.5, 0, 0, -7.3, 0, 0, 0, Main.scene);
-new obj('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, 10, 0, 7, 0, 0, 0, Main.scene);
-new obj('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, -5, 0, 7, 0, 0, 0, Main.scene);
-new obj('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, 10 , 0, -7, 0, 0, 0, Main.scene);
-new obj('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, -5, 0, -7, 0, 0, 0, Main.scene);
+new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, 10, 0, 7, 0, 0, 0, Main.scene, 20);
+new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, -5, 0, 7, 0, 0, 0, Main.scene, 100);
+new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, 10 , 0, -7, 0, 0, 0, Main.scene, 10);
+new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, -5, 0, -7, 0, 0, 0, Main.scene, 200);
 new fbx('./non-player asset/grasses/', 'grass_03.fbx', 1.3, 1, 1.5, -4, 0, 5, 0, 4.7, 0, Main.scene);
+
+//Set lampu light
+
+
 
 var vertices = [];
 for (let i = 0; i < 360; i++) {
@@ -144,7 +149,7 @@ for (let i = 0; i < 360; i++) {
 }
 
 const material = new THREE.MeshPhysicalMaterial({
-    color: 0x00ff00,     // Warna hijau
+    color: 0xff00dd,     // Warna hijau
     transparent: true,   // Menandakan bahwa material ini transparan
     opacity: 0.5,        // Menentukan tingkat transparansi, dari 0 (benar-benar transparan) hingga 1 (sepenuhnya opak)
     transmission: 1.0,   // Untuk membuat material seperti kaca
