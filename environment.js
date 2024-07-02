@@ -21,18 +21,24 @@ export class obj {
         };
         new MTLLoader()
             .setPath(path)
-            .load(MTL, function (materials) {
+            .load(MTL, (materials) => {
 
                 materials.preload();
 
                 new OBJLoader()
                     .setMaterials(materials)
                     .setPath(path)
-                    .load(OBJ, function (object) {
+                    .load(OBJ, (object) => {
+
+                        // Traverse the object and set shadow properties
+                        object.traverse((child) => {
+                            if (child.isMesh) {
+                                child.castShadow = true;
+                                child.receiveShadow = true;
+                            }
+                        });
 
                         sceneFromMain.add(object);
-                        object.castShadow = true;
-                        object.receiveShadow = true;
                         object.scale.set(radX, radY, radZ);
                         object.position.set(x, y, z);
                         object.rotation.x = rotX;
@@ -43,7 +49,6 @@ export class obj {
 
             });
     }
-
 }
 
 export class fbx {
@@ -75,6 +80,74 @@ export class fbx {
     }
 }
 
+export class animatedFBX {
+    constructor(path, FBXFile, scalar, x, y, z, rotX, rotY, rotZ, sceneFromMain, animationPath, animationFile) {
+        this.animations = {};  // Store animations
+        this.mixer = null;  // Animation mixer
+        this.clock = new THREE.Clock();  // Clock for animation
+        this.loadModelAnimated(path, FBXFile, scalar, x, y, z, rotX, rotY, rotZ, sceneFromMain, animationPath, animationFile);
+    }
+
+    loadModelAnimated(path, FBXFile, scalar = 0.01, x, y, z, rotX, rotY, rotZ, sceneFromMain, animationPath, animationFile) {
+        var loader = new FBXLoader();
+        loader.setPath(path);
+        loader.load(FBXFile, (fbx) => {
+            fbx.scale.setScalar(scalar);
+            fbx.traverse(c => {
+                c.castShadow = true;
+                c.receiveShadow = true;
+            });
+            this.mesh = fbx;
+            this.mesh.rotation.y += Math.PI / 2;
+            this.mesh.position.set(x, y, z);
+            this.mesh.rotation.x = rotX;
+            this.mesh.rotation.y = rotY;
+            this.mesh.rotation.z = rotZ;
+
+            this.mixer = new THREE.AnimationMixer(this.mesh);
+
+            // Load default animation
+            this.loadAnimation(animationPath, animationFile);
+
+            sceneFromMain.add(this.mesh);
+        });
+    }
+
+    loadAnimation(path, FBXFile) {
+        const loader = new FBXLoader();
+        loader.setPath(path);
+        loader.load(FBXFile, (fbx) => {
+            const clip = fbx.animations[0];
+            const action = this.mixer.clipAction(clip);
+            action.play();
+            this.animations[FBXFile] = {
+                clip: clip,
+                action: action,
+            };
+        });
+    }
+
+    playAnimation(name) {
+        if (this.animations[name]) {
+            this.animations[name].action.play();
+        }
+    }
+
+    stopAnimation(name) {
+        if (this.animations[name]) {
+            this.animations[name].action.stop();
+        }
+    }
+
+    update() {
+        const delta = this.clock.getDelta();
+        if (this.mixer) {
+            this.mixer.update(delta);
+        }
+    }
+}
+
+
 export class objLamp {
     constructor(path, OBJ, MTL, radX, radY, radZ, x, y, z, rotX, rotY, rotZ, sceneFromMain, power) {
         this.loadObj(path, OBJ, MTL, radX, radY, radZ, x, y, z, rotX, rotY, rotZ, sceneFromMain, power);
@@ -96,41 +169,33 @@ export class objLamp {
             .load(MTL, function (materials) {
 
                 materials.preload();
-
                 new OBJLoader()
                     .setMaterials(materials)
                     .setPath(path)
-                    .load(OBJ, function (object) {
+                    .load(OBJ, (object) => {
 
+                        // Traverse the object and set shadow properties
+                        object.traverse((child) => {
+                            if (child.isMesh) {
+                                child.castShadow = true;
+                                child.receiveShadow = true;
+                            }
+                        });
                         //Cahaya Lampu
                         var spotLight = new THREE.SpotLight(0xFFAA88, 1);
-                        spotLight.position.set(x, y+2.5, z);
+                        spotLight.position.set(x, y + 2.5, z);
                         spotLight.target.position.set(x, y, z);
-                        spotLight.angle = Math.PI / 1.8;
-                        spotLight.intensity = power/4;
+                        spotLight.angle = Math.PI / 2.2;
+                        spotLight.intensity = power / 1.5;
                         spotLight.penumbra = 0.1;
-                        spotLight.decay = 1;
-                        spotLight.distance = 100;
+                        spotLight.decay = 0.6;
+                        spotLight.distance = 10;
                         spotLight.castShadow = true;
-                        //brutal
-                        var spotLight2 = new THREE.SpotLight(0xFFAA88, 1);
-                        spotLight2.position.set(x, y+2.5, z);
-                        spotLight2.target.position.set(x, y, z);
-                        spotLight2.angle = Math.PI / 2.3;
-                        spotLight2.intensity = power;
-                        spotLight2.penumbra = 0.1;
-                        spotLight2.decay = 1;
-                        spotLight2.distance = 5;
-
-                        spotLight2.castShadow = true;
 
                         sceneFromMain.add(object);
                         sceneFromMain.add(spotLight);
                         sceneFromMain.add(spotLight.target);
-                        sceneFromMain.add(spotLight2);
-                        sceneFromMain.add(spotLight2.target);
-                        object.castShadow = true;
-                        object.receiveShadow = true;
+                        sceneFromMain.add(object);
                         object.scale.set(radX, radY, radZ);
                         object.position.set(x, y, z);
                         object.rotation.x = rotX;
@@ -138,8 +203,6 @@ export class objLamp {
                         object.rotation.z = rotZ;
 
                     }, onProgress);
-
             });
     }
-
 }

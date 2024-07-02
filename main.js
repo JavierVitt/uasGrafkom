@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import { Player, PlayerController, ThirdPersonCamera } from "./player.js";
-import { fbx, obj, objLamp} from "./environment.js";
+import { animatedFBX, fbx, obj, objLamp} from "./environment.js";
 
 
 class Main {
@@ -123,13 +123,22 @@ new obj('./non-player asset/Park2/', 'o5950.obj', 'o5950.mtl', 1.3, 1, 1.5, 5, 0
 new obj('./non-player asset/Park2/', 'o5950.obj', 'o5950.mtl', 1.3, 1, 1.5, 0, 0, 6, 0, 0, 0, Main.scene);
 new obj('./non-player asset/Park2/', 'o5950.obj', 'o5950.mtl', 1.3, 1, 1.5, 0, 0, -7.3, 0, 0, 0, Main.scene);
 new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, 10, 0, 7, 0, 0, 0, Main.scene, 20);
-new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, -5, 0, 7, 0, 0, 0, Main.scene, 100);
+new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, -5, 0, 7, 0, 0, 0, Main.scene, 20);
 new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, 10 , 0, -7, 0, 0, 0, Main.scene, 10);
-new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, -5, 0, -7, 0, 0, 0, Main.scene, 200);
+new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, -5, 0, -7, 0, 0, 0, Main.scene, 20);
+new fbx('./non-player asset/Park1/Garden Lamp/', 'GardenLamp1.fbx', 0.13, 0.13, 0.13, 4, 0.5, 3, 0, 0, 0, Main.scene);
 new fbx('./non-player asset/grasses/', 'grass_03.fbx', 1.3, 1, 1.5, -4, 0, 5, 0, 4.7, 0, Main.scene);
+var npc = new animatedFBX('./resources/Action Adventure Pack/','CH46_nonPBR.fbx', 0.01, 4.8,0.2,-0.5,0,-20.5,0,Main.scene, './resources/Action Adventure Pack/', 'SitMirror.fbx')
+var npc2 = new animatedFBX('./resources/Action Adventure Pack/','CH46_nonPBR.fbx', 0.01, 4.8,0.2,0.5,0,-20.5,0,Main.scene, './resources/Action Adventure Pack/', 'SitMirror.fbx');
 
 //Set lampu light
-
+// var PointLight = new THREE.PointLight(0xFFAA66, 20, 10, Math.PI / 2.2, 0.1, 0.6);
+// PointLight.position.set(4, 0.7, 3);
+// PointLight.castShadow = true;
+// var PointLightHelper = new THREE.PointLightHelper(PointLight);
+// PointLight.add(PointLightHelper);
+// this.scene.add(PointLight);
+// this.scene.add(PointLight.target);
 
 
 var vertices = [];
@@ -167,5 +176,8 @@ Main.scene.add(cube);
 function animate() {
     Main.render(clock.getDelta());
     requestAnimationFrame(animate);
+    npc.update();
+    npc2.update();
+    console.log(Main.player.mesh.position.x, Main.player.mesh.position.y, Main.player.mesh.position.z);
 }
 requestAnimationFrame(animate);

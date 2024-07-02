@@ -147,12 +147,12 @@ export class Player{
                 dtMouse.x = dtMouse.x / Math.PI;
                 dtMouse.y = dtMouse.y / Math.PI;
     
-                this.rotationVector.y += dtMouse.x * dt * 100;
-                this.rotationVector.z += dtMouse.y * dt * 100;
+                this.rotationVector.y += dtMouse.x * dt * 2000;
+                this.rotationVector.z += dtMouse.y * dt * 2000;
                 
             }
             this.mesh.rotation.y += this.rotationVector.y;
-
+            
         var forwardVector = new THREE.Vector3(1,0,0);
         var rightVector = new THREE.Vector3(0,0,1);
         var upVector = new THREE.Vector3(0,1,0);
@@ -173,6 +173,9 @@ export class Player{
         }
     }
 
+    getMeshPosition(){
+        return this.mesh.position;
+    }
 }
 
 export class PlayerController{
@@ -195,6 +198,7 @@ export class PlayerController{
         document.addEventListener('mousemove', (e) => this.onMouseMove(e), false);
         document.addEventListener('mousedown', (e) => this.onMouseDown(e), false);
         document.addEventListener('mouseup', (e) => this.onMouseUp(e), false);
+        document.addEventListener('wheel', (e) => this.onMouseWheel(e), false);
     }
     countJump(check){
         this.y = check;
@@ -272,7 +276,14 @@ export class PlayerController{
                 break;
         }    
     }
-
+    onMouseWheel(event) {
+        const delta = Math.sign(event.deltaY);
+        if (delta > 0) {
+            this.onScrollDown();
+        } else if (delta < 0) {
+            this.onScrollUp();
+        }
+    }
 }
 
 export class ThirdPersonCamera{
