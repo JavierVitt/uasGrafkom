@@ -25,10 +25,18 @@ class Main {
         }, false);
 
         //Plane
-        const textureGround = loader.load('https://th.bing.com/th/id/R.ad441b2289f3aaf03298e798f7a09b27?rik=Xd75PT25kV3VrQ&riu=http%3a%2f%2fwww.alldesigncreative.com%2fwp-content%2fuploads%2f2014%2f08%2fgreen-grass-texture.jpg&ehk=xB4eNNZFjaE4NRxhSkEOAI6aQR5n4r9UFpmtOciUU0Q%3d&risl=&pid=ImgRaw&r=0');
+        const textureGround = loader.load('https://tse2.mm.bing.net/th/id/OIP.sJ6OJZFKB9tit_yzlAtbZgHaHa?rs=1&pid=ImgDetMain');
         textureGround.colorSpace = THREE.SRGBColorSpace
+        textureGround.wrapS = THREE.RepeatWrapping;
+        textureGround.wrapT = THREE.RepeatWrapping;
+        textureGround.receiveShadow = true;
+        textureGround.castShadow = true;
+        const timesToRepeatHorizontally = 60;
+        const timesToRepeatVertically = 60;
+        textureGround.repeat.set(timesToRepeatHorizontally, timesToRepeatVertically);
+
         const geometry = new THREE.PlaneGeometry(100, 100)
-        const material = new THREE.MeshBasicMaterial({
+        const material = new THREE.MeshPhongMaterial({
             map: textureGround
         });
         var plane = new THREE.Mesh(geometry, material);
@@ -113,7 +121,7 @@ new obj('./non-player asset/Park2/', 'o5950.obj', 'o5950.mtl', 1.3, 1, 1.5, 5, 0
 new obj('./non-player asset/Park2/', 'o5950.obj', 'o5950.mtl', 1.3, 1, 1.5, 5, 0, -7.3, 0, 0, 0, Main.scene);
 new obj('./non-player asset/Park2/', 'o5950.obj', 'o5950.mtl', 1.3, 1, 1.5, 0, 0, 6, 0, 0, 0, Main.scene);
 new obj('./non-player asset/Park2/', 'o5950.obj', 'o5950.mtl', 1.3, 1, 1.5, 0, 0, -7.3, 0, 0, 0, Main.scene);
-
+new fbx('./non-player asset/grasses/', 'grass_03.fbx', 1.3, 1, 1.5, -4, 0, 5, 0, 4.7, 0, Main.scene);
 
 var vertices = [];
 for (let i = 0; i < 360; i++) {
