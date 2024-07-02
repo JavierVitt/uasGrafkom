@@ -49,10 +49,6 @@ export class obj {
 
             });
     }
-<<<<<<< Updated upstream
-    
-=======
->>>>>>> Stashed changes
 }
 
 export class fbx{
@@ -82,8 +78,6 @@ export class fbx{
         });
 
     }
-<<<<<<< Updated upstream
-=======
 }
 
 export class objLamp {
@@ -239,5 +233,4 @@ export class SMDModel {
             console.error('An error occurred while loading the SMD model:', error);
         });
     }
->>>>>>> Stashed changes
 }
