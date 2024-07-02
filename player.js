@@ -66,6 +66,10 @@ export class Player{
 
     }
 
+    getPosition(){
+        return this.mesh.position
+    }
+
     update(dt){
         this.jumpCD -= dt;
 
@@ -73,6 +77,7 @@ export class Player{
         this.lastRotation = this.mesh.rotation.y;
         var direction = new THREE.Vector3(0,0,0);
 
+        // console.log(this.mesh.position)
         // console.log(dt);
 
         // gravity
@@ -252,7 +257,7 @@ export class PlayerController{
             case "W".charCodeAt(0):
             case "w".charCodeAt(0):
                 this.keys['forward'] = false;
-                console.log("W");
+                // console.log("W");
                 break;
             case "S".charCodeAt(0):
             case "s".charCodeAt(0):
