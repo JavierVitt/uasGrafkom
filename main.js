@@ -143,6 +143,22 @@ for (let i = 0; i < 360; i++) {
     }
 }
 
+const material = new THREE.MeshPhysicalMaterial({
+    color: 0x00ff00,     // Warna hijau
+    transparent: true,   // Menandakan bahwa material ini transparan
+    opacity: 0.5,        // Menentukan tingkat transparansi, dari 0 (benar-benar transparan) hingga 1 (sepenuhnya opak)
+    transmission: 1.0,   // Untuk membuat material seperti kaca
+    roughness: 1.0,      // Halus
+    ior: 1.7,            // Indeks bias
+    thickness: 0.5       // Ketebalan objek kaca
+});
+
+const geometry = new THREE.BoxGeometry(1, 1, 1);
+const cube = new THREE.Mesh(geometry, material);
+Main.scene.add(cube);
+
+
+
 function animate() {
     Main.render(clock.getDelta());
     requestAnimationFrame(animate);
