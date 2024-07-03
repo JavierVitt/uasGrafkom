@@ -81,15 +81,6 @@ export class darkObj {
                         // Traverse the object and set shadow properties
                         object.traverse((child) => {
                             if (child.isMesh) {
-                                // Subtly increase the emissive property to brighten the object without changing its texture
-                                // Use a very subtle emissive color that complements the original material
-                                child.material.emissive = new THREE.Color(0x222222); // A very dark shade as a base for the brightening effect
-
-                                // Adjust the emissiveIntensity for a subtle brightening effect
-                                child.material.emissiveIntensity = 0.1; // Keep it low to ensure the effect is subtle
-
-                                // Ensure the material is updated to reflect changes
-                                child.material.needsUpdate = true;
                                 child.castShadow = true;
                                 child.receiveShadow = false;
                             }
@@ -201,6 +192,66 @@ export class animatedFBX {
         if (this.mixer) {
             this.mixer.update(delta);
         }
+    }
+}
+
+
+export class objLamp {
+    constructor(path, OBJ, MTL, radX, radY, radZ, x, y, z, rotX, rotY, rotZ, sceneFromMain, power) {
+        this.loadObj(path, OBJ, MTL, radX, radY, radZ, x, y, z, rotX, rotY, rotZ, sceneFromMain, power);
+    }
+    loadObj(path, OBJ, MTL, radX, radY, radZ, x, y, z, rotX, rotY, rotZ, sceneFromMain, power) {
+        //Object
+        const onProgress = function (xhr) {
+
+            if (xhr.lengthComputable) {
+
+                const percentComplete = xhr.loaded / xhr.total * 100;
+                console.log(percentComplete.toFixed(2) + '% downloaded');
+
+            }
+
+        };
+        new MTLLoader()
+            .setPath(path)
+            .load(MTL, function (materials) {
+
+                materials.preload();
+                new OBJLoader()
+                    .setMaterials(materials)
+                    .setPath(path)
+                    .load(OBJ, (object) => {
+
+                        // Traverse the object and set shadow properties
+                        object.traverse((child) => {
+                            if (child.isMesh) {
+                                child.castShadow = true;
+                                child.receiveShadow = true;
+                            }
+                        });
+                        //Cahaya Lampu
+                        var spotLight = new THREE.SpotLight(0xFFAA88, 1);
+                        spotLight.position.set(x, y + 2.5, z);
+                        spotLight.target.position.set(x, y, z);
+                        spotLight.angle = Math.PI / 2.2;
+                        spotLight.intensity = power / 1.5;
+                        spotLight.penumbra = 0.1;
+                        spotLight.decay = 0.6;
+                        spotLight.distance = 10;
+                        spotLight.castShadow = true;
+
+                        sceneFromMain.add(object);
+                        sceneFromMain.add(spotLight);
+                        sceneFromMain.add(spotLight.target);
+                        sceneFromMain.add(object);
+                        object.scale.set(radX, radY, radZ);
+                        object.position.set(x, y, z);
+                        object.rotation.x = rotX;
+                        object.rotation.y = rotY;
+                        object.rotation.z = rotZ;
+
+                    }, onProgress);
+            });
     }
 }
 

@@ -161,19 +161,19 @@ new obj('./non-player asset/Park2/', 'beergarden_bench.obj', 'beergarden_bench.m
 new obj('./non-player asset/Park2/', 'beergarden_bench.obj', 'beergarden_bench.mtl', 0.5, 0.8, 0.7, -4, 0, 8, 0, 1.52, 0, Main.scene);
 new obj('./non-player asset/Park2/', 'beergarden_bench.obj', 'beergarden_bench.mtl', 0.5, 0.8, 0.7, -4, 0, -8, 0, 1.52, 0, Main.scene);
 
-new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, 1, 0, 0, 0, 0, 0, Main.scene, 20);
-new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, 3, 0, 7, 0, 0, 0, Main.scene, 20);
-new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, 3, 0, -7, 0, 0, 0, Main.scene, 20);
-new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, -7, 0, 11, 0, 0, 0, Main.scene, 20);
-new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, -7, 0, -11, 0, 0, 0, Main.scene, 20);
-new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, -17, 0, -2, 0, 0, 0, Main.scene, 20);
-new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, -17, 0, 2, 0, 0, 0, Main.scene, 20);
-new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, -14, 0, -2, 0, 0, 0, Main.scene, 20);
-new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, -14, 0, 2, 0, 0, 0, Main.scene, 20);
-new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, -11, 0, -2, 0, 0, 0, Main.scene, 20);
-new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, -11, 0, 2, 0, 0, 0, Main.scene, 20);
+new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, 1, 0, 0, 0, 0, 0, Main.scene, 10);
+new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, 3, 0, 7, 0, 0, 0, Main.scene, 10);
+new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, 3, 0, -7, 0, 0, 0, Main.scene, 10);
+new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, -7, 0, 11, 0, 0, 0, Main.scene, 10);
+new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, -7, 0, -11, 0, 0, 0, Main.scene, 10);
+new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, -17, 0, -2, 0, 0, 0, Main.scene, 10);
+new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, -17, 0, 2, 0, 0, 0, Main.scene, 10);
+new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, -14, 0, -2, 0, 0, 0, Main.scene, 10);
+new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, -14, 0, 2, 0, 0, 0, Main.scene, 10);
+new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, -11, 0, -2, 0, 0, 0, Main.scene, 10);
+new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, -11, 0, 2, 0, 0, 0, Main.scene, 10);
 
-var torigate = new darkObj('./non-player asset/Park2/', 'Tori_02.obj', 'Tori_02.mtl', 0.017, 0.005, 0.01, -20, 0, 0, 0, 1.55, 0, Main.scene, 50);
+new fbx('./non-player asset/Park2/', 'arch.fbx', 0.7, 0.7, 0.7, -13, 0, -9, 0, 0, 0, Main.scene);
 new obj('./non-player asset/Park2/', 'pizza1.obj', 'pizza1.mtl', 1.2, 1.2, 1.2, 0, 0.8, -4.8, 0, 0, 0, Main.scene);
 
 new obj('./non-player asset/Park2/', 'Minion.obj', 'Minion.mtl', 0.5, 0.5, 0.5, 3, 0, 0, 0, 0, 0, Main.scene);
