@@ -1,0 +1,60 @@
+# Blender MTL File: 'None'
+# Material Count: 5
+
+newmtl 01_-_Default
+Ns 199.999995
+Ka 1.000000 1.000000 1.000000
+Kd 0.588235 0.588235 0.588235
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 0.290909
+illum 6
+
+newmtl Flasher
+Ns 0.100000
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd flare16.png
+map_d flare16.png
+
+newmtl SWH_G63Mercedes_diffuse
+Ns 0.792756
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd SWH_G63Mercedes_diffuse.png
+map_d SWH_G63Mercedes_diffuse.png
+
+newmtl SWH_WheelMercedes_Wheel_Diffuse
+Ns 199.999995
+Ka 1.000000 1.000000 1.000000
+Kd 0.058824 0.058824 0.058824
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd SWH_WheelMercedes_Wheel_Diffuse.png
+map_d SWH_WheelMercedes_Wheel_Diffuse.png
+
+newmtl mat_CarPlate
+Ns 199.999995
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd UAE_AD_1986.png
+map_d UAE_AD_1986.png

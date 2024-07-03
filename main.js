@@ -203,15 +203,15 @@ new obj('./non-player asset/Park2/', 'kevin.obj', 'kevin.mtl', 0.9, 0.9, 0.9, -2
 new obj('./non-player asset/Park2/', 'gru.obj', 'gru.mtl', 0.11, 0.11, 0.11, 8, 0, -1, 0, -1.2, 0, Main.scene);
 new obj('./non-player asset/Park2/', 'model.obj', 'model.mtl', 1, 1, 1, 8, 0, 1, 0, -1.9, 0, Main.scene);
 
-new obj('./non-player asset/Park2/', 'FOOD_CART.obj', 'FOOD_CART.mtl', 0.1, 0.1, 0.1, 5, 0, -8, 0, 1.55, 0, Main.scene);
-new obj('./non-player asset/Park2/', 'FOOD_CART.obj', 'FOOD_CART.mtl', 0.1, 0.1, 0.1, 5, 0, 8, 0, 1.55, 0, Main.scene);
-new obj('./non-player asset/Park2/', 'FOOD_CART.obj', 'FOOD_CART.mtl', 0.1, 0.1, 0.1, 5, 0, -12, 0, 1.55, 0, Main.scene);
-new obj('./non-player asset/Park2/', 'FOOD_CART.obj', 'FOOD_CART.mtl', 0.1, 0.1, 0.1, 5, 0, 12, 0, 1.55, 0, Main.scene);
+new obj('./non-player asset/Park2/', 'FOOD_CART.obj', 'FOOD_CART.mtl', 0.1, 0.1, 0.1, 10, 0, -8, 0, 1.55, 0, Main.scene);
+new obj('./non-player asset/Park2/', 'FOOD_CART.obj', 'FOOD_CART.mtl', 0.1, 0.1, 0.1, 10, 0, 8, 0, 1.55, 0, Main.scene);
+new obj('./non-player asset/Park2/', 'FOOD_CART.obj', 'FOOD_CART.mtl', 0.1, 0.1, 0.1, 10, 0, -12, 0, 1.55, 0, Main.scene);
+new obj('./non-player asset/Park2/', 'FOOD_CART.obj', 'FOOD_CART.mtl', 0.1, 0.1, 0.1, 10, 0, 12, 0, 1.55, 0, Main.scene);
 
-new obj('./non-player asset/Park2/', 'Chef.obj', 'Chef.mtl', 1.7, 1.7, 1.7, 6, 0, -11.5, 0, 4.8, 0, Main.scene);
-new obj('./non-player asset/Park2/', 'Chef.obj', 'Chef.mtl', 1.7, 1.7, 1.7, 6, 0, 12.5, 0, 4.8, 0, Main.scene);
-new obj('./non-player asset/Park2/', 'Chef.obj', 'Chef.mtl', 1.7, 1.7, 1.7, 6, 0, -7.5, 0, 4.8, 0, Main.scene);
-new obj('./non-player asset/Park2/', 'Chef.obj', 'Chef.mtl', 1.7, 1.7, 1.7, 6, 0, 8.5, 0, 4.8, 0, Main.scene);
+new obj('./non-player asset/Park2/', 'Chef.obj', 'Chef.mtl', 1.7, 1.7, 1.7, 11, 0, -11.5, 0, 4.8, 0, Main.scene);
+new obj('./non-player asset/Park2/', 'Chef.obj', 'Chef.mtl', 1.7, 1.7, 1.7, 11, 0, 12.5, 0, 4.8, 0, Main.scene);
+new obj('./non-player asset/Park2/', 'Chef.obj', 'Chef.mtl', 1.7, 1.7, 1.7, 11, 0, -7.5, 0, 4.8, 0, Main.scene);
+new obj('./non-player asset/Park2/', 'Chef.obj', 'Chef.mtl', 1.7, 1.7, 1.7, 11, 0, 8.5, 0, 4.8, 0, Main.scene);
 
 
 
@@ -220,8 +220,28 @@ new obj('./non-player asset/Park2/', 'cake.obj', 'cake.mtl', 3, 3, 3, 6, 0.9, 0,
 
 new obj('./non-player asset/Park2/', 'Cylinder001.obj', 'Cylinder001.mtl', 5, 2, 2, 10, 0, 0, 0, -1.6, 0, Main.scene);
 
+//CAR
+//Left Side
+new obj('./non-player asset/Park2/', 'Mercedes-Benz [W115].obj', 'Mercedes-Benz [W115].mtl', 0.2, 0.2, 0.2, -15, 0, -5, 0, -0.5, 0, Main.scene);
+new obj('./non-player asset/Park2/', 'AMG.obj', 'AMG.mtl', 1, 1, 1, -19, 0, -5, 0, -0.5, 0, Main.scene);
+new obj('./non-player asset/Park2/', 'ref1.obj', 'ref1.mtl', 0.02, 0.02, 0.02, -22, 0.6, -5, 0, -0.5, 0, Main.scene);
 
+new obj('./non-player asset/Park2/', 'BadGuysCar.obj', 'BadGuysCar.mtl', 4.3, 4.3, 4.3, -19, 0, -10, 0, 2, 0, Main.scene);
+new obj('./non-player asset/Park2/', 'KevinCar.obj', 'KevinCar.mtl', 0.8, 0.8, 0.8, -16, 0, -9, 0, -0.5, 0, Main.scene);
+new obj('./non-player asset/Park2/', 'farmerscar.obj', 'farmerscar.mtl', 0.008, 0.008, 0.008, -12, 0, -10, 0, -0.5, 0, Main.scene);
 
+//Right Side
+new obj('./non-player asset/Park2/', 'ref2.obj', 'ref2.mtl', 0.02, 0.02, 0.02, -15, 0.6, 5, 0, 3.5, 0, Main.scene);
+new obj('./non-player asset/Park2/', 'TT_CAR.obj', 'TT_CAR.mtl', 1.1, 1.1, 1.5, -19, 0.6, 5, 0, 3.5, 0, Main.scene);
+new obj('./non-player asset/Park2/', 'MalibuStacyCar.obj', 'MalibuStacyCar.mtl', 1, 1, 1, -22, 0, 5, 0, 3.5, 0, Main.scene);
+
+new obj('./non-player asset/Park2/', 'superCar.obj', 'superCar.mtl', 0.1, 0.1, 0.1, -14, 0, 10, 0, 3.5, 0, Main.scene);
+new obj('./non-player asset/Park2/', 'clownCar.obj', 'clownCar.mtl', 1, 1, 1, -17, 0, 10, 0, 3.5, 0, Main.scene);
+new obj('./non-player asset/Park2/', 'copCar.obj', 'copCar.mtl', 0.8, 0.8, 0.8, -20, 0, 11, 0, 0.3, 0, Main.scene);
+
+//Arena
+new obj('./non-player asset/Park2/', 'Chauncey Arena.obj', 'Chauncey Arena.mtl', 0.4, 0.4, 0.4, 6, -0.2, 10, 4.7, 0, 1.5, Main.scene);
+new obj('./non-player asset/Park2/', 'Chauncey Arena.obj', 'Chauncey Arena.mtl', 0.4, 0.4, 0.4, 6, -0.2, -10, 4.7, 0, 1.5, Main.scene);
 
 
 //----------------------------------END OF ARSITEKTUR TAMAN--------------------------------------------------
