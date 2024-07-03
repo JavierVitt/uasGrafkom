@@ -232,16 +232,26 @@ function detectCollisions() {
             (bounds.zMin <= collisions[index].zMax && bounds.zMax >= collisions[index].zMin)) {
             // We hit a solid object! Stop all movements.
             // console.log("Collision detected!");
-
-            if (bounds.xMin <= collisions[index].xMax && bounds.xMax>=collisions[index].xMax) {
-                // collisions[index].canMoveXLess = false;
-                // Main.player.canMoveXLess = false;
-                // continue;
-                console.log("kanan")
+            // console.log("bounds.xMax = ", bounds.xMax);
+            // console.log("collisions[index].xMax = ", collisions[index].xMax);
+            // console.log("bounds.xMin = ", bounds.xMin);
+            // console.log("collisions[index].xMin = ", collisions[index].xMin);
+            // console.log("canMoveLess = ", Main.player.canMoveXLess);
+            if (bounds.xMin <= collisions[index].xMax) {
+                
+                if(bounds.xMin >= collisions[index].xMin){
+                    collisions[index].canMoveXLess = false;
+                    Main.player.canMoveXLess = false;
+                    console.log("kanan")
+                }
             }
 
             if(bounds.xMax >= collisions[index].xMin){
-                console.log("kiri")
+                if(bounds.xMax <= collisions[index].xMax){
+                    collisions[index].canMoveXMore = false;
+                    Main.player.canMoveXMore = false;
+                    console.log("kiri")
+                }
             }
             
             
@@ -258,6 +268,9 @@ function detectCollisions() {
                     // playerPosition.x = collisions[index].xMax;
                     // console.log("1");
                     // console.log("nubrukkk")
+                    
+                    playerPosition.z += 0.3;
+                    console.log("HHHHHAAAHDWUHABWIUDW:AIBUD")
                     Main.player.canMoveXLess = false;
                     collisions[index].canMoveXLess = false;
                     continue;
