@@ -1,0 +1,26 @@
+# Blender MTL File: 'None'
+# Material Count: 2
+
+newmtl CartWheels
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.451765 0.451765 0.451765
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd CartWheels.png
+map_Ka CartWheels.png
+map_d CartWheels.png
+
+newmtl Carttext01
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.451765 0.451765 0.451765
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd Carttext01.png
+map_Ka Carttext01.png
+map_d Carttext01.png

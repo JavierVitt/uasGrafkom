@@ -25,14 +25,14 @@ class Main {
         }, false);
 
         //Plane
-        const textureGround = loader.load('https://tse2.mm.bing.net/th/id/OIP.sJ6OJZFKB9tit_yzlAtbZgHaHa?rs=1&pid=ImgDetMain');
+        const textureGround = loader.load('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTI8i0qxhlLtxr-Ne-eFTF9GXmjHxbiJNo9zg&s');
         textureGround.colorSpace = THREE.SRGBColorSpace
         textureGround.wrapS = THREE.RepeatWrapping;
         textureGround.wrapT = THREE.RepeatWrapping;
         textureGround.receiveShadow = true;
         textureGround.castShadow = true;
-        const timesToRepeatHorizontally = 60;
-        const timesToRepeatVertically = 60;
+        const timesToRepeatHorizontally = 100;
+        const timesToRepeatVertically = 100;
         textureGround.repeat.set(timesToRepeatHorizontally, timesToRepeatVertically);
 
         const geometry = new THREE.PlaneGeometry(100, 100)
@@ -159,25 +159,52 @@ new obj('./non-player asset/Park2/', 'beergarden_bench.obj', 'beergarden_bench.m
 new obj('./non-player asset/Park2/', 'beergarden_bench.obj', 'beergarden_bench.mtl', 0.5, 0.8, 0.7, -4,0,8, 0, 1.52, 0, Main.scene);
 new obj('./non-player asset/Park2/', 'beergarden_bench.obj', 'beergarden_bench.mtl', 0.5, 0.8, 0.7, -4,0,-8, 0, 1.52, 0, Main.scene);
 
-new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, 1 , 0, 0, 0, 0, 0, Main.scene, 20);
-new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, 3 , 0, 7, 0, 0, 0, Main.scene, 20);
-new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, 3 , 0, -7, 0, 0, 0, Main.scene, 20);
-new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, -7 , 0, 11, 0, 0, 0, Main.scene, 20);
-new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, -7 , 0, -11, 0, 0, 0, Main.scene, 20);
-new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, -17, 0, -2, 0, 0, 0, Main.scene, 20);
-new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, -17, 0, 2, 0, 0, 0, Main.scene, 20);
-new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, -14, 0, -2, 0, 0, 0, Main.scene, 20);
-new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, -14, 0, 2, 0, 0, 0, Main.scene, 20);
-new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, -11, 0, -2, 0, 0, 0, Main.scene, 20);
-new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, -11, 0, 2, 0, 0, 0, Main.scene, 20);
+new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, 1 , 0.8, 0, 0, 0, 0, Main.scene, 20);
+new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, 3 , 0.8, 7, 0, 0, 0, Main.scene, 20);
+new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, 3 , 0.8, -7, 0, 0, 0, Main.scene, 20);
+new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, -7 , 0.8, 11, 0, 0, 0, Main.scene, 20);
+new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, -7 , 0.8, -11, 0, 0, 0, Main.scene, 20);
+new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, -17, 0.8, -2, 0, 0, 0, Main.scene, 20);
+new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, -17, 0.8, 2, 0, 0, 0, Main.scene, 20);
+new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, -14, 0.8, -2, 0, 0, 0, Main.scene, 20);
+new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, -14, 0.8, 2, 0, 0, 0, Main.scene, 20);
+new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, -11, 0.8, -2, 0, 0, 0, Main.scene, 20);
+new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, -11, 0.8, 2, 0, 0, 0, Main.scene, 20);
 
 new obj('./non-player asset/Park2/', 'Tori_02.obj', 'Tori_02.mtl', 0.017, 0.005, 0.01, -20, 0, 0, 0, 1.55, 0, Main.scene);
 
 new obj('./non-player asset/Park2/', 'pizza1.obj', 'pizza1.mtl', 1.2, 1.2, 1.2, 0, 0.8, -4.8, 0, 0, 0, Main.scene);
 
-new obj('./non-player asset/Park2/', 'Minion.obj', 'Minion.mtl', 0.5, 0.5, 0.5, 3, 0, 0, 0, 0, 0, Main.scene);
-new obj('./non-player asset/Park2/', 'stuart.obj', 'stuart.mtl', 0.5, 0.5, 0.5, 3, 0, 2, 0, 0, 0, Main.scene);
-// new obj('./non-player asset/Park2/', 'mc_party.obj', 'mc_party.mtl', 10, 10, 10, 3, -2, 5, 0, 0, 5, Main.scene);
+new obj('./non-player asset/Park2/', 'Minion.obj', 'Minion.mtl', 0.5, 0.5, 0.5, 0, 0, 1.8, 0, -1.5, 0, Main.scene);
+new obj('./non-player asset/Park2/', 'Minion.obj', 'Minion.mtl', 0.5, 0.5, 0.5, 0, 0, 1, 0, -1.5, 0, Main.scene);
+
+new obj('./non-player asset/Park2/', 'stuart.obj', 'stuart.mtl', 1, 1, 1, -10, 0, -2, 0, 0, 0, Main.scene);
+new obj('./non-player asset/Park2/', 'stuart.obj', 'stuart.mtl', 1, 1, 1, -10, 0, 2, 0, 3, 0, Main.scene);
+new obj('./non-player asset/Park2/', 'stuart.obj', 'stuart.mtl', 1, 1, 1, -13, 0, -2, 0, 0, 0, Main.scene);
+new obj('./non-player asset/Park2/', 'stuart.obj', 'stuart.mtl', 1, 1, 1, -13, 0, 2, 0, 3, 0, Main.scene);
+new obj('./non-player asset/Park2/', 'stuart.obj', 'stuart.mtl', 1, 1, 1, -16, 0, -2, 0, 0, 0, Main.scene);
+new obj('./non-player asset/Park2/', 'stuart.obj', 'stuart.mtl', 1, 1, 1, -16, 0, 2, 0, 3, 0, Main.scene);
+new obj('./non-player asset/Park2/', 'stuart.obj', 'stuart.mtl', 1, 1, 1, -19, 0, -2, 0, 0, 0, Main.scene);
+new obj('./non-player asset/Park2/', 'stuart.obj', 'stuart.mtl', 1, 1, 1, -19, 0, 2, 0, 3, 0, Main.scene);
+
+new obj('./non-player asset/Park2/', 'kevin.obj', 'kevin.mtl', 0.9, 0.9, 0.9, -2, 0, -6, 0, 0, 0, Main.scene);
+
+new obj('./non-player asset/Park2/', 'gru.obj', 'gru.mtl', 0.11, 0.11, 0.11, 8, 0, -1, 0, -1.2, 0, Main.scene);
+new obj('./non-player asset/Park2/', 'model.obj', 'model.mtl', 1, 1, 1, 8, 0, 1, 0, -1.9, 0, Main.scene);
+
+new obj('./non-player asset/Park2/', 'FOOD_CART.obj', 'FOOD_CART.mtl', 0.1, 0.1, 0.1, 5, 0, -8, 0, 1.55, 0, Main.scene);
+new obj('./non-player asset/Park2/', 'FOOD_CART.obj', 'FOOD_CART.mtl', 0.1, 0.1, 0.1, 5, 0, 8, 0, 1.55, 0, Main.scene);
+new obj('./non-player asset/Park2/', 'FOOD_CART.obj', 'FOOD_CART.mtl', 0.1, 0.1, 0.1, 5, 0, -12, 0, 1.55, 0, Main.scene);
+new obj('./non-player asset/Park2/', 'FOOD_CART.obj', 'FOOD_CART.mtl', 0.1, 0.1, 0.1, 5, 0, 12, 0, 1.55, 0, Main.scene);
+
+new obj('./non-player asset/Park2/', 'Chef.obj', 'Chef.mtl', 1.7, 1.7, 1.7, 6, 0, -11.5, 0, 4.8, 0, Main.scene);
+new obj('./non-player asset/Park2/', 'Chef.obj', 'Chef.mtl', 1.7, 1.7, 1.7, 6, 0, 12.5, 0, 4.8, 0, Main.scene);
+new obj('./non-player asset/Park2/', 'Chef.obj', 'Chef.mtl', 1.7, 1.7, 1.7, 6, 0, -7.5, 0, 4.8, 0, Main.scene);
+new obj('./non-player asset/Park2/', 'Chef.obj', 'Chef.mtl', 1.7, 1.7, 1.7, 6, 0, 8.5, 0, 4.8, 0, Main.scene);
+
+
+
+
 new obj('./non-player asset/Park2/', 'otukue2.obj', 'otukue2.mtl', 1.8, 1.8, 1.8, 6, 0, 0, 0, 0, 0, Main.scene);
 new obj('./non-player asset/Park2/', 'cake.obj', 'cake.mtl', 3, 3, 3, 6, 0.9, 0, 0, 0, 0, Main.scene);
 
