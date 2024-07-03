@@ -116,7 +116,7 @@ Main.init();
 
 // console.log("player position: ", Main.getPlayer().mesh);
 
-new obj('./non-player asset/Park2/', 'bench_res.obj', 'bench_res.mtl', 1, 1, 1, 0, 0, 0, 0, -4.65, 0, Main.scene);
+// new obj('./non-player asset/Park2/', 'bench_res.obj', 'bench_res.mtl', 1, 1, 1, 0, 0, 0, 0, -4.65, 0, Main.scene);
 new obj('./non-player asset/Park2/', 'bench_res.obj', 'bench_res.mtl', 1, 1, 1, 5, 0, 0, 0, 4.65, 0, Main.scene);
 new obj('./non-player asset/Park2/', 'acaciaTree.obj', 'acaciaTree.mtl', 0.01, 0.01, 0.01, 2.5, 0, 10, 0, 0, 0, Main.scene);
 new obj('./non-player asset/Park2/', 'tire swing.obj', 'tire swing.mtl', 0.2, 0.2, 0.2, 2.5, 0, 0, 0, 4.67, 0, Main.scene);
@@ -160,9 +160,24 @@ var collisions = [];
 // print(window.collisions);
 
 function calculateAndPushCollisionPoints(mesh, scale, type = 'collision') {
+
+    var playerMesh = Main.getPlayer().mesh;
+    var player = new THREE.Box3().setFromObject(playerMesh);
+    
+    var existingMin = player.min.clone();
+    var existingMax = player.max.clone();
+
+    existingMin.z = -0.3;
+    existingMax.z = 0.3;
+
+    player.set(existingMin, existingMax);
+    const playerHelper = new THREE.Box3Helper(player, 0xffff00);
+    Main.scene.add(playerHelper);
+
     // Compute the bounding box after scale, translation, etc.
     var bbox = new THREE.Box3().setFromObject(mesh);
-
+    const helper = new THREE.Box3Helper(bbox, 0xffff00);
+    Main.scene.add(helper);
     // akses min dan max x,y,z dari bounding box
     var bounds = {
         type: type,
@@ -172,6 +187,8 @@ function calculateAndPushCollisionPoints(mesh, scale, type = 'collision') {
         yMax: bbox.max.y,
         zMin: bbox.min.z,
         zMax: bbox.max.z,
+        canMoveXLess: true,
+        canMoveXMore: true
     };
     collisions.push(bounds);
 }
@@ -197,69 +214,78 @@ var playerPosition;
 function detectCollisions() {
     // Get the user's current collision area.
 
-    var playerMesh = Main.getPlayer().mesh;
-    var player = new THREE.Box3().setFromObject(playerMesh);
-    var playerBounds = {
-        xMin: player.min.x,
-        xMax: player.max.x,
-        yMin: player.min.y,
-        yMax: player.max.y,
-        zMin: player.min.z,
-        zMax: player.max.z,
-    };
-
-    // var bounds = {
-    //     xMin: playerPosition.x - playerBounds.xMin,
-    //     xMax: playerPosition.x + playerBounds.xMax,
-    //     yMin: playerPosition.y - playerBounds.yMin,
-    //     yMax: playerPosition.y + playerBounds.yMax,
-    //     zMin: playerPosition.z - playerBounds.zMin,
-    //     zMax: playerPosition.z + playerBounds.zMax,
-    // };
     var bounds = {
-        xMin: playerPosition.x,
-        xMax: playerPosition.x,
-        yMin: playerPosition.y,
-        yMax: playerPosition.y,
-        zMin: playerPosition.z,
-        zMax: playerPosition.z,
+        xMin: playerPosition.x -0.3,
+        xMax: playerPosition.x +0.3,
+        yMin: playerPosition.y -0.3,
+        yMax: playerPosition.y +0.3,
+        zMin: playerPosition.z -0.3,
+        zMax: playerPosition.z +0.3,
     };
 
     // Run through each object and detect if there is a collision.
     for (var index = 0; index < collisions.length; index++) {
+        // console.log("collisions[index].canMoveXLess: ",collisions[index].canMoveXLess);
+        // console.log("canMoveXLess", Main.player.canMoveXLess);
+        if ((bounds.xMin <= collisions[index].xMax && bounds.xMax >= collisions[index].xMin) &&
+            (bounds.yMin <= collisions[index].yMax && bounds.yMax >= collisions[index].yMin) &&
+            (bounds.zMin <= collisions[index].zMax && bounds.zMax >= collisions[index].zMin)) {
+            // We hit a solid object! Stop all movements.
+            // console.log("Collision detected!");
 
-        if (collisions[index].type == 'collision') {
+            if (bounds.xMin <= collisions[index].xMax && bounds.xMax>=collisions[index].xMax) {
+                // collisions[index].canMoveXLess = false;
+                // Main.player.canMoveXLess = false;
+                // continue;
+                console.log("kanan")
+            }
+
+            if(bounds.xMax >= collisions[index].xMin){
+                console.log("kiri")
+            }
+            
+            
+        }
+
+        if (collisions[index].canMoveXLess == false) {
             if ((bounds.xMin <= collisions[index].xMax && bounds.xMax >= collisions[index].xMin) &&
                 (bounds.yMin <= collisions[index].yMax && bounds.yMax >= collisions[index].yMin) &&
                 (bounds.zMin <= collisions[index].zMax && bounds.zMax >= collisions[index].zMin)) {
                 // We hit a solid object! Stop all movements.
-                console.log("Collision detected!");
+                // console.log("Collision detected!");
 
-                // Move the object in the clear. Detect the best direction to move.
-                if (bounds.xMin <= collisions[index].xMax && bounds.xMax >= collisions[index].xMin) {
-                    // Determine center then push out accordingly.
-                    var objectCenterX = ((collisions[index].xMax - collisions[index].xMin) / 2) + collisions[index].xMin;
-                    var playerCenterX = ((bounds.xMax - bounds.xMin) / 2) + bounds.xMin;
-                    var objectCenterZ = ((collisions[index].zMax - collisions[index].zMin) / 2) + collisions[index].zMin;
-                    var playerCenterZ = ((bounds.zMax - bounds.zMin) / 2) + bounds.zMin;
+                if (bounds.xMin <= collisions[index].xMax) {//Bener
+                    // playerPosition.x = collisions[index].xMax;
+                    // console.log("1");
+                    // console.log("nubrukkk")
+                    Main.player.canMoveXLess = false;
+                    collisions[index].canMoveXLess = false;
+                    continue;
+                }
 
-                    // Determine the X axis push.
-                    if (objectCenterX > playerCenterX) {
-                        // playerPosition.x -= 1;
-                    } else {
-                        // playerPosition.x += 1;
-                    }
-                }
-                if (bounds.zMin <= collisions[index].zMax && bounds.zMax >= collisions[index].zMin) {
-                    // Determine the Z axis push.
-                    if (objectCenterZ > playerCenterZ) {
-                        // playerPosition.z -= 1;
-                    } else {
-                        // playerPosition.z += 1;
-                    }
-                }
+            }
+            else {
+                // console.log("no collision");
+                collisions[index].canMoveXLess = true;
+                Main.player.canMoveXLess = true;
             }
         }
+
+        
+        
+        // if(bounds.xMin <= collisions[index].xMax && bounds.xMax >= collisions[index].xMin) 
+            
+            
+        // if(bounds.yMin <= collisions[index].yMax && bounds.yMax >= collisions[index].yMin)
+
+
+        // if(bounds.zMin <= collisions[index].zMax && bounds.zMax >= collisions[index].zMin)) {
+        
+        
+        // }            
+        
+        
+        
     }
 }
 
@@ -287,7 +313,7 @@ function animate() {
     }
     // Detect collisions.
     
-
+    // console.log(Main.player.canMoveXLess)
     Main.render(clock.getDelta());
 
 

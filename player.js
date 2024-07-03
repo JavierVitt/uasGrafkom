@@ -13,6 +13,11 @@ export class Player{
         this.animations = {};
         this.lastRotation = 0;
         this.jumpCD = 0;
+        this.direction = new THREE.Vector3(0,0,0);
+        this.canMoveXLess = true;
+        this.canMoveXMore = true;
+        this.canMoveZ = true;
+        this.canMoveY = true;
         
 
         this.camera.setup(new THREE.Vector3(0,0,0), this.rotationVector);
@@ -74,106 +79,106 @@ export class Player{
         this.jumpCD -= dt;
 
         if(this.mesh && this.animations){
-        this.lastRotation = this.mesh.rotation.y;
-        var direction = new THREE.Vector3(0,0,0);
+            this.lastRotation = this.mesh.rotation.y;
+            this.direction.set(0,0,0);
+            
+            // console.log(this.mesh.position)
+            // console.log(dt);
 
-        // console.log(this.mesh.position)
-        // console.log(dt);
-
-        // gravity
-        if(this.mesh.position.y > 0){
-            // if (this.animations['jump']) {
-            //     if (this.state != "jump") {
-            //         this.mixer.stopAllAction();
-            //         this.state = "jump";
-            //     }
-            //     this.mixer.clipAction(this.animations['jump'].clip).play();
-            // }
-            direction.y -= 0.35;
-        }
-
-        if(this.controller.keys['forward']){
-            direction.x = 1;
-            this.mesh.rotation.y = Math.PI/2;
-        }
-        if(this.controller.keys['backward']){
-            direction.x = -1;
-            this.mesh.rotation.y = -Math.PI/2;
-        }
-        if(this.controller.keys['left']){
-            direction.z = -1;
-            this.mesh.rotation.y = Math.PI;
-        }
-        if(this.controller.keys['right']){
-            direction.z = 1;
-            this.mesh.rotation.y = 0;
-        }
-
-        if(this.controller.keys['jump'] && this.jumpCD <= 0){
-            this.jumpCD = 0.5;
-            direction.y += 6.1;
-        }
-        this.lastRotation = this.mesh.rotation.y;
-        // console.log(direction.length())
-        if(direction.length() == 0){
-            if(this.animations['idle']){
-                if(this.state != "idle"){
-                    this.mixer.stopAllAction();
-                    this.state = "idle";
-                } 
-                this.mixer.clipAction(this.animations['idle'].clip).play();
-            }
-        }
-        else{
+            // gravity
             if(this.mesh.position.y > 0){
-                if (this.animations['jump']) {
-                    if (this.state != "jump") {
+                // if (this.animations['jump']) {
+                //     if (this.state != "jump") {
+                //         this.mixer.stopAllAction();
+                //         this.state = "jump";
+                //     }
+                //     this.mixer.clipAction(this.animations['jump'].clip).play();
+                // }
+                this.direction.y -= 0.35;
+            }
+
+            if(this.controller.keys['forward'] && this.canMoveZ){
+                this.direction.x = 1;
+                this.mesh.rotation.y = Math.PI/2;
+            }
+            if(this.controller.keys['backward'] && this.canMoveZ){
+                this.direction.x = -1;
+                this.mesh.rotation.y = -Math.PI/2;
+            }
+            if(this.controller.keys['left'] && this.canMoveXLess){
+                this.direction.z = -1;
+                this.mesh.rotation.y = Math.PI;
+            }
+            if(this.controller.keys['right'] && this.canMoveXMore){
+                this.direction.z = 1;
+                this.mesh.rotation.y = 0;
+            }
+
+            if(this.controller.keys['jump'] && this.jumpCD <= 0){
+                this.jumpCD = 0.5;
+                this.direction.y += 6.1;
+            }
+            this.lastRotation = this.mesh.rotation.y;
+            // console.log(this.direction.length())
+            if(this.direction.length() == 0){
+                if(this.animations['idle']){
+                    if(this.state != "idle"){
                         this.mixer.stopAllAction();
-                        this.state = "jump";
-                    }
-                    this.mixer.clipAction(this.animations['jump'].clip).play();
+                        this.state = "idle";
+                    } 
+                    this.mixer.clipAction(this.animations['idle'].clip).play();
                 }
             }
             else{
-                if (this.animations['run']) {
-                    if (this.state != "run") {
-                        this.mixer.stopAllAction();
-                        this.state = "run";
+                if(this.mesh.position.y > 0){
+                    if (this.animations['jump']) {
+                        if (this.state != "jump") {
+                            this.mixer.stopAllAction();
+                            this.state = "jump";
+                        }
+                        this.mixer.clipAction(this.animations['jump'].clip).play();
                     }
-                    this.mixer.clipAction(this.animations['run'].clip).play();
                 }
+                else{
+                    if (this.animations['run']) {
+                        if (this.state != "run") {
+                            this.mixer.stopAllAction();
+                            this.state = "run";
+                        }
+                        this.mixer.clipAction(this.animations['run'].clip).play();
+                    }
+                }
+            
             }
-           
-        }
 
-        if(this.controller.mouseDown)
-            {
-                var dtMouse = this.controller.deltaMousePos;
-                dtMouse.x = dtMouse.x / Math.PI;
-                dtMouse.y = dtMouse.y / Math.PI;
-    
-                this.rotationVector.y += dtMouse.x * dt * 100;
-                this.rotationVector.z += dtMouse.y * dt * 100;
-                
-            }
-            this.mesh.rotation.y += this.rotationVector.y;
-
-        var forwardVector = new THREE.Vector3(1,0,0);
-        var rightVector = new THREE.Vector3(0,0,1);
-        var upVector = new THREE.Vector3(0,1,0);
-        forwardVector.applyAxisAngle(new THREE.Vector3(0,1,0), this.rotationVector.y);
-        rightVector.applyAxisAngle(new THREE.Vector3(0,1,0), this.rotationVector.y);
-        upVector.applyAxisAngle(new THREE.Vector3(0, 1, 0), this.rotationVector.y);
-
-        this.mesh.position.add(forwardVector.multiplyScalar(dt*this.speed*direction.x));
-        this.mesh.position.add(rightVector.multiplyScalar(dt*this.speed*direction.z));
-        this.mesh.position.add(upVector.multiplyScalar(dt * this.speed * direction.y));
+            if(this.controller.mouseDown)
+                {
+                    var dtMouse = this.controller.deltaMousePos;
+                    dtMouse.x = dtMouse.x / Math.PI;
+                    dtMouse.y = dtMouse.y / Math.PI;
         
-        this.camera.setup(this.mesh.position, this.rotationVector);
+                    this.rotationVector.y += dtMouse.x * dt * 100;
+                    this.rotationVector.z += dtMouse.y * dt * 100;
+                    
+                }
+                this.mesh.rotation.y += this.rotationVector.y;
 
-        if(this.mixer){
-            this.mixer.update(dt);
-        }
+            var forwardVector = new THREE.Vector3(1,0,0);
+            var rightVector = new THREE.Vector3(0,0,1);
+            var upVector = new THREE.Vector3(0,1,0);
+            forwardVector.applyAxisAngle(new THREE.Vector3(0,1,0), this.rotationVector.y);
+            rightVector.applyAxisAngle(new THREE.Vector3(0,1,0), this.rotationVector.y);
+            upVector.applyAxisAngle(new THREE.Vector3(0, 1, 0), this.rotationVector.y);
+
+            this.mesh.position.add(forwardVector.multiplyScalar(dt*this.speed*this.direction.x));
+            this.mesh.position.add(rightVector.multiplyScalar(dt*this.speed*this.direction.z));
+            this.mesh.position.add(upVector.multiplyScalar(dt * this.speed * this.direction.y));
+            
+            this.camera.setup(this.mesh.position, this.rotationVector);
+
+            if(this.mixer){
+                this.mixer.update(dt);
+            }
 
         }
     }
