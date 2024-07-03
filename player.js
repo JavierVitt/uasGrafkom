@@ -147,8 +147,8 @@ export class Player{
                 dtMouse.x = dtMouse.x / Math.PI;
                 dtMouse.y = dtMouse.y / Math.PI;
     
-                this.rotationVector.y += dtMouse.x * dt * 100;
-                this.rotationVector.z += dtMouse.y * dt * 100;
+                this.rotationVector.y += dtMouse.x * dt * 2000;
+                this.rotationVector.z += dtMouse.y * dt * 2000;
                 
             }
             this.mesh.rotation.y += this.rotationVector.y;

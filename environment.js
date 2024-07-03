@@ -1,10 +1,10 @@
 import * as THREE from "three";
 import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
 import { MTLLoader } from 'three/addons/loaders/MTLLoader.js';
-import {FBXLoader} from 'three/addons/loaders/FBXLoader.js';
+import { FBXLoader } from 'three/addons/loaders/FBXLoader.js';
 
 export class obj {
-    constructor(path, OBJ, MTL, radX, radY, radZ, x, y, z, rotX, rotY, rotZ, sceneFromMain){
+    constructor(path, OBJ, MTL, radX, radY, radZ, x, y, z, rotX, rotY, rotZ, sceneFromMain) {
         this.loadObj(path, OBJ, MTL, radX, radY, radZ, x, y, z, rotX, rotY, rotZ, sceneFromMain);
     }
     loadObj(path, OBJ, MTL, radX, radY, radZ, x, y, z, rotX, rotY, rotZ, sceneFromMain) {
@@ -51,40 +51,11 @@ export class obj {
     }
 }
 
-export class fbx{
-    constructor(path, FBXFile, radX, radY, radZ, x, y, z, rotX, rotY, rotZ, sceneFromMain){
-        this.loadModel(path, FBXFile, radX, radY, radZ, x, y, z, rotX, rotY, rotZ, sceneFromMain);
+export class darkObj {
+    constructor(path, OBJ, MTL, radX, radY, radZ, x, y, z, rotX, rotY, rotZ, sceneFromMain, luma) {
+        this.loadObj(path, OBJ, MTL, radX, radY, radZ, x, y, z, rotX, rotY, rotZ, sceneFromMain, luma);
     }
-    
-    loadModel(path, FBXFile, radX, radY, radZ, x, y, z, rotX, rotY, rotZ, sceneFromMain){
-        var loader = new FBXLoader();
-        loader.setPath(path);
-        loader.load(FBXFile, (fbx) => {
-            fbx.scale.setScalar(0.01);
-            fbx.traverse(c => {
-              c.castShadow = true;
-              c.receiveShadow = true;
-              c.scale.set(radX, radY, radZ);
-              c.position.set(x, y, z);
-              c.rotation.x = rotX;
-              c.rotation.y = rotY;
-              c.rotation.z = rotZ;
-            });
-            this.mesh = fbx;
-            sceneFromMain.add(this.mesh);
-            this.mesh.rotation.y += Math.PI/2;
-
-            this.mixer = new THREE.AnimationMixer(this.mesh);            
-        });
-
-    }
-}
-
-export class objLamp {
-    constructor(path, OBJ, MTL, radX, radY, radZ, x, y, z, rotX, rotY, rotZ, sceneFromMain, power) {
-        this.loadObj(path, OBJ, MTL, radX, radY, radZ, x, y, z, rotX, rotY, rotZ, sceneFromMain, power);
-    }
-    loadObj(path, OBJ, MTL, radX, radY, radZ, x, y, z, rotX, rotY, rotZ, sceneFromMain, power) {
+    loadObj(path, OBJ, MTL, radX, radY, radZ, x, y, z, rotX, rotY, rotZ, sceneFromMain, luma) {
         //Object
         const onProgress = function (xhr) {
 
@@ -98,46 +69,34 @@ export class objLamp {
         };
         new MTLLoader()
             .setPath(path)
-            .load(MTL, function (materials) {
+            .load(MTL, (materials) => {
 
                 materials.preload();
 
                 new OBJLoader()
                     .setMaterials(materials)
                     .setPath(path)
-                    .load(OBJ, function (object) {
+                    .load(OBJ, (object) => {
 
+                        // Traverse the object and set shadow properties
                         object.traverse((child) => {
                             if (child.isMesh) {
+                                // Subtly increase the emissive property to brighten the object without changing its texture
+                                // Use a very subtle emissive color that complements the original material
+                                child.material.emissive = new THREE.Color(0x222222); // A very dark shade as a base for the brightening effect
+
+                                // Adjust the emissiveIntensity for a subtle brightening effect
+                                child.material.emissiveIntensity = 0.1; // Keep it low to ensure the effect is subtle
+
+                                // Ensure the material is updated to reflect changes
+                                child.material.needsUpdate = true;
                                 child.castShadow = true;
-                                child.receiveShadow = true;
+                                child.receiveShadow = false;
                             }
                         });
-                        //Cahaya Lampu
-                        var spotLight = new THREE.SpotLight(0xFFAA88, 1);
-                        spotLight.position.set(x, y + 2.5, z);
-                        spotLight.target.position.set(x, y, z);
-                        spotLight.angle = Math.PI / 2.1;
-                        spotLight.intensity = power/2.5;
-                        spotLight.penumbra = 0.1;
-                        spotLight.decay = 0.6;
-                        spotLight.distance = 10;
-                        spotLight.castShadow = true;
-
-                        sceneFromMain.add(object);
-                        sceneFromMain.add(spotLight);
-                        sceneFromMain.add(spotLight.target);
-                        sceneFromMain.add(object);
-                        object.scale.set(radX, radY, radZ);
-                        object.position.set(x, y, z);
-                        object.rotation.x = rotX;
-                        object.rotation.y = rotY;
-                        object.rotation.z = rotZ;
-
-                    }, onProgress);
-
-            });
-    }
+                    });
+    };
+}
 
 }
 
