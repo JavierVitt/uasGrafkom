@@ -177,6 +177,12 @@ var torigate = new darkObj('./non-player asset/Park2/', 'Tori_02.obj', 'Tori_02.
 new obj('./non-player asset/Park2/', 'pizza1.obj', 'pizza1.mtl', 1.2, 1.2, 1.2, 0, 0.8, -4.8, 0, 0, 0, Main.scene);
 
 new obj('./non-player asset/Park2/', 'Minion.obj', 'Minion.mtl', 0.5, 0.5, 0.5, 3, 0, 0, 0, 0, 0, Main.scene);
+new obj('./non-player asset/Park2/', 'stuart.obj', 'stuart.mtl', 0.5, 0.5, 0.5, 3, 0, 2, 0, 0, 0, Main.scene);
+// new obj('./non-player asset/Park2/', 'mc_party.obj', 'mc_party.mtl', 10, 10, 10, 3, -2, 5, 0, 0, 5, Main.scene);
+new obj('./non-player asset/Park2/', 'otukue2.obj', 'otukue2.mtl', 1.8, 1.8, 1.8, 6, 0, 0, 0, 0, 0, Main.scene);
+new obj('./non-player asset/Park2/', 'cake.obj', 'cake.mtl', 3, 3, 3, 6, 0.9, 0, 0, 0, 0, Main.scene);
+
+new obj('./non-player asset/Park2/', 'Cylinder001.obj', 'Cylinder001.mtl', 5, 2, 2, 10, 0, 0, 0, -1.6, 0, Main.scene);
 
 //----------------------------------END OF ARSITEKTUR TAMAN--------------------------------------------------
 
