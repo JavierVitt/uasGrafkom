@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import { Player, PlayerController, ThirdPersonCamera } from "./player.js";
-import { fbx, obj, objLamp, SMDModel} from "./environment.js";
+import { darkObj, fbx, obj, objLamp, SMDModel, animatedFBX} from "./environment.js";
 
 
 class Main {
@@ -45,7 +45,7 @@ class Main {
         plane.castShadow = true;
         this.scene.add(plane);
 
-        
+
         // var plane = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), new THREE.MeshPhongMaterial({ color: 0x00ff00 }));
         // plane.rotation.x = - Math.PI / 2;
         // plane.receiveShadow = true;
@@ -59,13 +59,15 @@ class Main {
         //Directional Light
         var directionalLight = new THREE.DirectionalLight(0xFFFFFF, 1);
         directionalLight.position.set(3, 10, 10);
+        directionalLight.shadow.mapSize.width = 2048; // Increase for sharper shadows
+        directionalLight.shadow.mapSize.height = 2048; // Increase for sharper shadows
         directionalLight.castShadow = true;
-        directionalLight.shadow.camera.top = 20;
-        directionalLight.shadow.camera.bottom = -20;
-        directionalLight.shadow.camera.left = - 20;
-        directionalLight.shadow.camera.right = 20;
-        directionalLight.shadow.camera.near = 0.1;
-        directionalLight.shadow.camera.far = 40;
+        directionalLight.shadow.camera.top = 100; //ubah ke 0 aja kl ga jalan/lag
+        directionalLight.shadow.camera.bottom = -100;
+        directionalLight.shadow.camera.left = -100;
+        directionalLight.shadow.camera.right = 100;
+        directionalLight.shadow.camera.near = -100;
+        directionalLight.shadow.camera.far =100;
         directionalLight.castShadow = true;
         this.scene.add(directionalLight);
 
@@ -142,22 +144,22 @@ for (let i = 0; i < 360; i++) {
 }
 
 for (let i = 0; i < 360; i++) {
-    if(i%6 == 0){
+    if (i % 6 == 0) {
         // new obj('./non-player asset/Park2/', 'tree_obj.obj', 'tree_mtl.mtl', 0.01, 0.02, 0.01, vertices[i*3], vertices[i*3+1]-0.01, vertices[i*3+2], 0, 0, 0, Main.scene);
     }
 }
-new obj('./non-player asset/Park2/', 'beergarden_bench.obj', 'beergarden_bench.mtl', 0.5, 0.8, 0.7, 0,0,8, 0, 1.52, 0, Main.scene);
-new obj('./non-player asset/Park2/', 'beergarden_bench.obj', 'beergarden_bench.mtl', 0.5, 0.8, 0.7, 0,0,-8, 0, 1.52, 0, Main.scene);
-new obj('./non-player asset/Park2/', 'beergarden_bench.obj', 'beergarden_bench.mtl', 0.5, 0.8, 0.7, 0,0,4, 0, 1.52, 0, Main.scene);
-new obj('./non-player asset/Park2/', 'beergarden_bench.obj', 'beergarden_bench.mtl', 0.5, 0.8, 0.7, 0,0,-4, 0, 1.52, 0, Main.scene);
-new obj('./non-player asset/Park2/', 'beergarden_bench.obj', 'beergarden_bench.mtl', 0.5, 0.8, 0.7, -4,0,4, 0, 1.52, 0, Main.scene);
-new obj('./non-player asset/Park2/', 'beergarden_bench.obj', 'beergarden_bench.mtl', 0.5, 0.8, 0.7, -4,0,-4, 0, 1.52, 0, Main.scene);
-new obj('./non-player asset/Park2/', 'beergarden_bench.obj', 'beergarden_bench.mtl', 0.5, 0.8, 0.7, -8,0,4, 0, 1.52, 0, Main.scene);
-new obj('./non-player asset/Park2/', 'beergarden_bench.obj', 'beergarden_bench.mtl', 0.5, 0.8, 0.7, -8,0,-4, 0, 1.52, 0, Main.scene);
-new obj('./non-player asset/Park2/', 'beergarden_bench.obj', 'beergarden_bench.mtl', 0.5, 0.8, 0.7, -8,0,8, 0, 1.52, 0, Main.scene);
-new obj('./non-player asset/Park2/', 'beergarden_bench.obj', 'beergarden_bench.mtl', 0.5, 0.8, 0.7, -8,0,-8, 0, 1.52, 0, Main.scene);
-new obj('./non-player asset/Park2/', 'beergarden_bench.obj', 'beergarden_bench.mtl', 0.5, 0.8, 0.7, -4,0,8, 0, 1.52, 0, Main.scene);
-new obj('./non-player asset/Park2/', 'beergarden_bench.obj', 'beergarden_bench.mtl', 0.5, 0.8, 0.7, -4,0,-8, 0, 1.52, 0, Main.scene);
+new obj('./non-player asset/Park2/', 'beergarden_bench.obj', 'beergarden_bench.mtl', 0.5, 0.8, 0.7, 0, 0, 8, 0, 1.52, 0, Main.scene);
+new obj('./non-player asset/Park2/', 'beergarden_bench.obj', 'beergarden_bench.mtl', 0.5, 0.8, 0.7, 0, 0, -8, 0, 1.52, 0, Main.scene);
+new obj('./non-player asset/Park2/', 'beergarden_bench.obj', 'beergarden_bench.mtl', 0.5, 0.8, 0.7, 0, 0, 4, 0, 1.52, 0, Main.scene);
+new obj('./non-player asset/Park2/', 'beergarden_bench.obj', 'beergarden_bench.mtl', 0.5, 0.8, 0.7, 0, 0, -4, 0, 1.52, 0, Main.scene);
+new obj('./non-player asset/Park2/', 'beergarden_bench.obj', 'beergarden_bench.mtl', 0.5, 0.8, 0.7, -4, 0, 4, 0, 1.52, 0, Main.scene);
+new obj('./non-player asset/Park2/', 'beergarden_bench.obj', 'beergarden_bench.mtl', 0.5, 0.8, 0.7, -4, 0, -4, 0, 1.52, 0, Main.scene);
+new obj('./non-player asset/Park2/', 'beergarden_bench.obj', 'beergarden_bench.mtl', 0.5, 0.8, 0.7, -8, 0, 4, 0, 1.52, 0, Main.scene);
+new obj('./non-player asset/Park2/', 'beergarden_bench.obj', 'beergarden_bench.mtl', 0.5, 0.8, 0.7, -8, 0, -4, 0, 1.52, 0, Main.scene);
+new obj('./non-player asset/Park2/', 'beergarden_bench.obj', 'beergarden_bench.mtl', 0.5, 0.8, 0.7, -8, 0, 8, 0, 1.52, 0, Main.scene);
+new obj('./non-player asset/Park2/', 'beergarden_bench.obj', 'beergarden_bench.mtl', 0.5, 0.8, 0.7, -8, 0, -8, 0, 1.52, 0, Main.scene);
+new obj('./non-player asset/Park2/', 'beergarden_bench.obj', 'beergarden_bench.mtl', 0.5, 0.8, 0.7, -4, 0, 8, 0, 1.52, 0, Main.scene);
+new obj('./non-player asset/Park2/', 'beergarden_bench.obj', 'beergarden_bench.mtl', 0.5, 0.8, 0.7, -4, 0, -8, 0, 1.52, 0, Main.scene);
 
 new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, 1 , 0.8, 0, 0, 0, 0, Main.scene, 20);
 new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, 3 , 0.8, 7, 0, 0, 0, Main.scene, 20);
@@ -171,8 +173,7 @@ new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2
 new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, -11, 0.8, -2, 0, 0, 0, Main.scene, 20);
 new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, -11, 0.8, 2, 0, 0, 0, Main.scene, 20);
 
-new obj('./non-player asset/Park2/', 'Tori_02.obj', 'Tori_02.mtl', 0.017, 0.005, 0.01, -20, 0, 0, 0, 1.55, 0, Main.scene);
-
+new fbx('./non-player asset/Park2/', 'arch.fbx', 0.7, 0.7, 0.7, -13, 0, -9, 0, 0, 0, Main.scene);
 new obj('./non-player asset/Park2/', 'pizza1.obj', 'pizza1.mtl', 1.2, 1.2, 1.2, 0, 0.8, -4.8, 0, 0, 0, Main.scene);
 
 new obj('./non-player asset/Park2/', 'Minion.obj', 'Minion.mtl', 0.5, 0.5, 0.5, 0, 0, 1.8, 0, -1.5, 0, Main.scene);
