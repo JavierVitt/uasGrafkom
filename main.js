@@ -25,7 +25,7 @@ class Main {
         }, false);
 
         //Plane
-        const textureGround = loader.load('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTI8i0qxhlLtxr-Ne-eFTF9GXmjHxbiJNo9zg&s');
+        const textureGround = loader.load('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-xQ-x7OpqJlD6i-e8k-EsP_nm6wItVbvsZg&s');
         textureGround.colorSpace = THREE.SRGBColorSpace
         textureGround.wrapS = THREE.RepeatWrapping;
         textureGround.wrapT = THREE.RepeatWrapping;
