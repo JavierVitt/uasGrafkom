@@ -1,24 +1,12 @@
 import * as THREE from "three";
-import { Player, PlayerController, ThirdPersonCamera, FreeLookCamera } from "./player.js";
+import { Player, PlayerController, ThirdPersonCamera } from "./player.js";
 import { animatedFBX, fbx, obj, objLamp } from "./environment.js";
 
 
-export class Main {
-    toggleCamera() {
-        if (this.currentCamera === this.thirdPersonCamera) {
-            this.currentCamera = this.freeLookCamera;
-        } else {
-            this.currentCamera = this.thirdPersonCamera;
-        }
-        // Log to confirm camera switch
-        console.log("Camera switched:", this.currentCamera === this.thirdPersonCamera ? "Third Person" : "Free Look");
-    }
-
+class Main {
     static WindowResize() {
         this.camera.aspect = window.innerWidth / window.innerHeight;
         this.camera.updateProjectionMatrix();
-        this.freeLookCamera.aspect = window.innerWidth / window.innerHeight;
-        this.freeLookCamera.updateProjectionMatrix();
         this.renderer.setSize(window.innerWidth, window.innerHeight);
     }
     static init() {
@@ -65,29 +53,6 @@ export class Main {
         // plane.castShadow = true;
         // this.scene.add(plane);
 
-        //NEW! FREECAM
-        this.freeLookCamera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        this.thirdPersonCameraController = new ThirdPersonCamera(
-            this.camera, new THREE.Vector3(-5, 2, 0), new THREE.Vector3(0, 0, 0)
-        );
-        this.freeLookCameraController = new FreeLookCamera(
-            this.freeLookCamera, new THREE.Vector3(0, 2, 10), new THREE.Vector3(0, 0, 0)
-        );
-        this.isFreeLook = false;
-        this.activeCamera = this.camera;
-
-        //NEW! BGM
-        const bgmlistener = new THREE.AudioListener();
-        this.activeCamera.add(bgmlistener);
-        const bgm = new THREE.Audio(bgmlistener);
-        const audioLoader = new THREE.AudioLoader();
-        audioLoader.load('./non-player asset/soundtrack.wav', function (buffer) {
-            bgm.setBuffer(buffer);
-            bgm.setLoop(true);
-            bgm.setVolume(0.5);
-            // bgm.play();
-        });
-
         //Ambient Light
         var ambientLight = new THREE.AmbientLight(0xDDEEFF, 0.75);
         this.scene.add(ambientLight);
@@ -112,9 +77,9 @@ export class Main {
         const thirdPersonCamera = new ThirdPersonCamera(this.camera, new THREE.Vector3(-5, 2, 0), new THREE.Vector3(0, 0, 0));
 
         // Then create the PlayerController instance with the ThirdPersonCamera instance
-        this.playerController = new PlayerController(this.thirdPersonCameraController, Main);
+        const playerController = new PlayerController(thirdPersonCamera);
         // ThirdPersonCamera
-        this.player = new Player(this.thirdPersonCameraController, new PlayerController(this.thirdPersonCameraController, Main), this.scene, 10);
+        this.player = new Player(thirdPersonCamera, playerController, this.scene, 10);
 
 
 
@@ -132,7 +97,7 @@ export class Main {
     }
     static render(dt) {
         this.player.update(dt);
-        this.renderer.render(this.scene, this.activeCamera);
+        this.renderer.render(this.scene, this.camera);
     }
 }
 
@@ -211,12 +176,5 @@ function animate() {
     npc.update();
     npc2.update();
     console.log(Main.player.mesh.position.x, Main.player.mesh.position.y, Main.player.mesh.position.z);
-    //NEW!! CHANGECAMERA
-    if (Main.isFreeLook) {
-        Main.freeLookCameraController.update(Main.player.mesh.position);
-    }
-    else {
-        Main.thirdPersonCameraController.update(Main.player.mesh.position);
-    }
 }
 requestAnimationFrame(animate);

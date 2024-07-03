@@ -1,6 +1,5 @@
 import * as THREE from "three";
 import { FBXLoader } from 'three/addons/loaders/FBXLoader.js';
-import { Main } from './main.js';
 
 export class Player {
 
@@ -179,7 +178,8 @@ export class Player {
 }
 
 export class PlayerController {
-    constructor(thirdPersonCamera, mainInstance) {
+
+    constructor(thirdPersonCamera) {
         this.keys = {
             "forward": false,
             "backward": false,
@@ -188,16 +188,12 @@ export class PlayerController {
             "jump": false,
             "runtostop": false
         }
-
-        this.mainInstance = mainInstance;
         this.mousePos = new THREE.Vector2();
         this.mouseDown = false;
         this.deltaMousePos = new THREE.Vector2();
         this.y = 0;
         this.thirdPersonCamera = thirdPersonCamera;
-
-        // Bind `this` to the onKeyDown method
-        document.addEventListener('keydown', this.onKeyDown.bind(this), false);
+        document.addEventListener('keydown', (e) => this.onKeyDown(e), false);
         document.addEventListener('keyup', (e) => this.onKeyUp(e), false);
         document.addEventListener('mousemove', (e) => this.onMouseMove(e), false);
         document.addEventListener('mousedown', (e) => this.onMouseDown(e), false);
@@ -218,14 +214,6 @@ export class PlayerController {
     }
     onMouseUp(event) {
         this.mouseDown = false;
-        if (event.button === 2) {
-            //Right mouse up
-            console.log('Right mouse button released');
-        }
-        else {
-            //Left mouse Up
-            console.log('Left mouse button released');
-        }
     }
     onMouseMove(event) {
         var currentMousePos = new THREE.Vector2(
@@ -256,13 +244,10 @@ export class PlayerController {
                 break;
             case " ".charCodeAt(0):
             case " ".charCodeAt(0):
-                if (this.y === 0) {
+                // console.log(this.mesh.position.y);
+                if (this.y == 0) {
                     this.keys['jump'] = true;
                 }
-                break;
-            case "E".charCodeAt(0):
-            case "e".charCodeAt(0):
-                this.mainInstance.toggleCamera();
                 break;
         }
     }
@@ -317,7 +302,6 @@ export class ThirdPersonCamera {
         this.camera = camera;
         this.positionOffSet = positionOffSet;
         this.targetOffSet = targetOffSet;
-        this.clock = new THREE.Clock();
     }
     setup(target, angle) {
         var temp = new THREE.Vector3(0, 1, 0);
@@ -344,75 +328,4 @@ export class ThirdPersonCamera {
         this.camera.fov = THREE.MathUtils.clamp(this.camera.fov, 10, 75);
         this.camera.updateProjectionMatrix();
     }
-    update(target) {
-        const elapsedTime = this.clock.getElapsedTime();
-        const lookAtOffset = new THREE.Vector3(
-            Math.sin(elapsedTime) * 2,
-            Math.cos(elapsedTime) * 2,
-            Math.sin(elapsedTime) * 2
-        ); // Adjust the values for desired "free look" motion
-        const lookAtTarget = new THREE.Vector3();
-        lookAtTarget.addVectors(target, lookAtOffset);
-
-        this.camera.lookAt(lookAtTarget);
-    }
 }
-
-
-export class FreeLookCamera {
-    constructor(camera, positionOffSet, targetOffSet) {
-        this.camera = camera;
-        this.positionOffSet = positionOffSet;
-        this.targetOffSet = targetOffSet;
-        this.clock = new THREE.Clock(); // Initialize the clock
-
-        this.mousePos = new THREE.Vector2(0, 0); // Initial mouse position
-        this.lookAtTarget = new THREE.Vector3(0, 0, 0); // Initial lookAt target
-
-        // Bind the mouse move event to the class method
-        document.addEventListener('mousemove', (e) => this.onMouseMoveFree(e), false);
-    }
-
-    setup(target, angle) {
-        var temp = new THREE.Vector3(0, 1, 0);
-        temp.copy(this.positionOffSet);
-        temp.applyAxisAngle(new THREE.Vector3(angle.x, 1, 0), angle.y);
-        temp.applyAxisAngle(new THREE.Vector3(angle.y, 0, 1), angle.z);
-        temp.addVectors(target, temp);
-        this.camera.position.copy(temp);
-
-        this.updateLookAt();
-    }
-
-    updateLookAt() {
-        this.camera.lookAt(this.lookAtTarget);
-    }
-
-    zoomIn() {
-        this.camera.fov -= 2; // Decrease FOV for zooming in
-        this.camera.fov = THREE.MathUtils.clamp(this.camera.fov, 10, 75);
-        this.camera.updateProjectionMatrix();
-    }
-
-    zoomOut() {
-        this.camera.fov += 2; // Increase FOV for zooming out
-        this.camera.fov = THREE.MathUtils.clamp(this.camera.fov, 10, 75);
-        this.camera.updateProjectionMatrix();
-    }
-
-    onMouseMoveFree(event) {
-        // Calculate mouse position in normalized device coordinates (-1 to +1) for both components.
-        this.mousePos.x = (event.clientX / window.innerWidth) * 2 - 1;
-        this.mousePos.y = -(event.clientY / window.innerHeight) * 2 + 1;
-
-        // Update the lookAtTarget based on the mouse position
-        this.lookAtTarget.x = this.mousePos.x * 10; // Multiply to increase the sensitivity as needed
-        this.lookAtTarget.y = this.mousePos.y * 10;
-    }
-
-    update(target) {
-        this.updateLookAt();
-    }
-}
-
-
