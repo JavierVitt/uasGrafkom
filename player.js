@@ -329,3 +329,36 @@ export class ThirdPersonCamera {
         this.camera.updateProjectionMatrix();
     }
 }
+
+export class cinematicCamera {
+    constructor(camera, positionOffSet, targetOffSet) {
+        this.camera = camera;
+        this.positionOffSet = positionOffSet;
+        this.targetOffSet = targetOffSet;
+    }
+    setup(target, angle) {
+        var temp = new THREE.Vector3(0, 1, 0);
+        temp.copy(this.positionOffSet);
+        temp.applyAxisAngle(new THREE.Vector3(angle.x, 1, 0), angle.y);
+        temp.applyAxisAngle(new THREE.Vector3(angle.y, 0, 1), angle.z);
+        temp.addVectors(target, temp);
+        this.camera.position.copy(temp);
+        temp = new THREE.Vector3(0, 0, 0);
+        temp.addVectors(target, this.targetOffSet);
+        const targetOffset = new THREE.Vector3(0, 1, 0); // Adjust this value to aim higher
+        const eyeCam = new THREE.Vector3(0, 0, 0);
+        eyeCam.addVectors(target, this.targetOffSet).add(targetOffset);
+        this.camera.lookAt(eyeCam);
+    }
+    zoomIn() {
+        this.camera.fov -= 2; // Decrease FOV for zooming in
+        this.camera.fov = THREE.MathUtils.clamp(this.camera.fov, 10, 75);
+        this.camera.updateProjectionMatrix();
+    }
+
+    zoomOut() {
+        this.camera.fov += 2; // Increase FOV for zooming out
+        this.camera.fov = THREE.MathUtils.clamp(this.camera.fov, 10, 75);
+        this.camera.updateProjectionMatrix();
+    }
+}
