@@ -125,6 +125,7 @@ export class Player{
                     if(this.state != "idle"){
                         this.mixer.stopAllAction();
                         this.state = "idle";
+                        this.rotationVector = new THREE.Vector3(0,0,0);
                     } 
                     this.mixer.clipAction(this.animations['idle'].clip).play();
                 }
@@ -156,9 +157,9 @@ export class Player{
                     var dtMouse = this.controller.deltaMousePos;
                     dtMouse.x = dtMouse.x / Math.PI;
                     dtMouse.y = dtMouse.y / Math.PI;
-        
-                    this.rotationVector.y += dtMouse.x * dt * 100;
-                    this.rotationVector.z += dtMouse.y * dt * 100;
+                
+                this.rotationVector.y += dtMouse.x * dt * -500;
+                this.rotationVector.z += dtMouse.y * dt * 500;
                     
                 }
                 this.mesh.rotation.y += this.rotationVector.y;

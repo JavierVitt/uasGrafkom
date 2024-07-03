@@ -222,14 +222,19 @@ function detectCollisions() {
         zMin: playerPosition.z -0.3,
         zMax: playerPosition.z +0.3,
     };
-
+    var previousPosition;
     // Run through each object and detect if there is a collision.
     for (var index = 0; index < collisions.length; index++) {
         // console.log("collisions[index].canMoveXLess: ",collisions[index].canMoveXLess);
         // console.log("canMoveXLess", Main.player.canMoveXLess);
+        // console.log("canMoveXLess", Main.player.canMoveXLess);  
+
+        previousPosition = playerPosition;
         if ((bounds.xMin <= collisions[index].xMax && bounds.xMax >= collisions[index].xMin) &&
             (bounds.yMin <= collisions[index].yMax && bounds.yMax >= collisions[index].yMin) &&
             (bounds.zMin <= collisions[index].zMax && bounds.zMax >= collisions[index].zMin)) {
+            console.log("playerPosition.z = ", bounds.zMin + bounds.zMax / 2);
+            console.log("object.z = ", collisions[index].zMin + collisions[index].zMax / 2);
             // We hit a solid object! Stop all movements.
             // console.log("Collision detected!");
             // console.log("bounds.xMax = ", bounds.xMax);
@@ -237,49 +242,68 @@ function detectCollisions() {
             // console.log("bounds.xMin = ", bounds.xMin);
             // console.log("collisions[index].xMin = ", collisions[index].xMin);
             // console.log("canMoveLess = ", Main.player.canMoveXLess);
-            if (bounds.xMin <= collisions[index].xMax) {
+            // if (bounds.xMin <= collisions[index].xMax) {
+            //     console.log("masuk1")
+            //     collisions[index].canMoveXLess = false;
+            //     Main.player.canMoveXLess = false;
+            //     // console.log("kanan")
+            // }
+            // if (bounds.xMax >= collisions[index].xMin) {
+            //     console.log("masuk2")
+            //     collisions[index].canMoveXMore = false;
+            //     Main.player.canMoveXMore = false;
+            //     // console.log("kiri")
+            // }
+            
+            // if(playerPosition.x > collisions[index].xMin + collisions[index].xMax/2){
+            //     playerPosition.x = previousPosition.x - 0.5;
+            // }
+            // if (playerPosition.x < collisions[index].xMin + collisions[index].xMax/2) {
+            //     playerPosition.x = previousPosition.x + 0.5;
+            // }
+            // playerPosition.y = previousPosition.y +0.1;
+            if (bounds.zMin + bounds.zMax / 2 > collisions[index].zMin + collisions[index].zMax/2){
+                playerPosition.z = previousPosition.z + 0.083;
+            }
+            if (bounds.zMin + bounds.zMax / 2 < collisions[index].zMin + collisions[index].zMax / 2) {
+                playerPosition.z = previousPosition.z - 0.083;
+            }
+            if (bounds.xMin + bounds.xMax / 2 > collisions[index].xMin + collisions[index].xMax / 2) {
+                playerPosition.x = previousPosition.x + 0.083;
+            }
+            if (bounds.xMin + bounds.xMax / 2 < collisions[index].xMin + collisions[index].xMax / 2) {
+                playerPosition.x = previousPosition.x - 0.083;
+            }
+
+            // if (bounds.yMin + bounds.yMax / 2 > collisions[index].yMin + collisions[index].yMax / 2) {
+            //     playerPosition.y = previousPosition.y - 0.1;
+            // }
+            // if (bounds.yMin + bounds.yMax / 2 < collisions[index].yMin + collisions[index].yMax / 2) {
+            //     playerPosition.y = previousPosition.y + 0.1;
+            // }
+
+            
+            
+            
+        }
+
+        // if (collisions[index].canMoveXLess == false) {
+        //     if ((bounds.xMin <= collisions[index].xMax && bounds.xMax >= collisions[index].xMin) &&
+        //         (bounds.yMin <= collisions[index].yMax && bounds.yMax >= collisions[index].yMin) &&
+        //         (bounds.zMin <= collisions[index].zMax && bounds.zMax >= collisions[index].zMin)) {
+        //             console.log("masuk3")
+        //         Main.player.canMoveXMore = true;
+        //     }
+        //     else {
+        //         // console.log("no collision");
+
+        //         console.log("masuk4")
+        //         collisions[index].canMoveXLess = true;
+        //         Main.player.canMoveXLess = true;
                 
-                if(bounds.xMin >= collisions[index].xMin){
-                    collisions[index].canMoveXLess = false;
-                    Main.player.canMoveXLess = false;
-                    console.log("kanan")
-                }
-            }
-
-            if(bounds.xMax >= collisions[index].xMin){
-                if(bounds.xMax <= collisions[index].xMax){
-                    collisions[index].canMoveXMore = false;
-                    Main.player.canMoveXMore = false;
-                    console.log("kiri")
-                }
-            }
-            
-            
-        }
-
-        if (collisions[index].canMoveXLess == false) {
-            if ((bounds.xMin <= collisions[index].xMax && bounds.xMax >= collisions[index].xMin) &&
-                (bounds.yMin <= collisions[index].yMax && bounds.yMax >= collisions[index].yMin) &&
-                (bounds.zMin <= collisions[index].zMax && bounds.zMax >= collisions[index].zMin)) {
-                // We hit a solid object! Stop all movements.
-                // console.log("Collision detected!");
-
-                if (bounds.xMin <= collisions[index].xMax) {//Bener
-                    // playerPosition.x = collisions[index].xMax;
-                    // console.log("1");
-                    // console.log("nubrukkk")
-                    Main.player.canMoveXLess = false;
-                    collisions[index].canMoveXLess = false;
-                    continue;
-                }
-
-            }
-            else {
-                // console.log("no collision");
-                collisions[index].canMoveXLess = true;
-                Main.player.canMoveXLess = true;
-            }
-        }
+        //     }
+        // }
+        
         
         
         // if(bounds.xMin <= collisions[index].xMax && bounds.xMax >= collisions[index].xMin) 
