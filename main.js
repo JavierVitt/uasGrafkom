@@ -1,7 +1,6 @@
 import * as THREE from "three";
 import { Player, PlayerController, ThirdPersonCamera } from "./player.js";
-import { darkObj, fbx, obj, objLamp, SMDModel, animatedFBX} from "./environment.js";
-
+import { darkObj, fbx, obj, objLamp, SMDModel, animatedFBX } from "./environment.js";
 
 class Main {
     static WindowResize() {
@@ -67,7 +66,7 @@ class Main {
         directionalLight.shadow.camera.left = -100;
         directionalLight.shadow.camera.right = 100;
         directionalLight.shadow.camera.near = -100;
-        directionalLight.shadow.camera.far =100;
+        directionalLight.shadow.camera.far = 100;
         directionalLight.castShadow = true;
         this.scene.add(directionalLight);
 
@@ -134,18 +133,29 @@ Main.init();
 
 var vertices = [];
 for (let i = 0; i < 360; i++) {
-    var angleInRadians = (i * Math.PI) / 180;
-    var newX = 2.8 + Math.cos(angleInRadians) * 20; // X-coordinate remains the same
-    var newY = 0; // Rotate around X-axis
-    var newZ = 0 + Math.sin(angleInRadians) * 20; // Translate along Z-axis
-    vertices.push(newX);
-    vertices.push(newY);
-    vertices.push(newZ);
+    // if (i>86 ) {
+    //     var angleInRadians = (i * Math.PI) / 180;
+    //     var newX = Math.cos(angleInRadians) * 25; // X-coordinate remains the same
+    //     var newY = 0; // Rotate around X-axis
+    //     var newZ = 0 + Math.sin(angleInRadians) * 25; // Translate along Z-axis
+    //     vertices.push(newX);
+    //     vertices.push(newY);
+    //     vertices.push(newZ);
+    // }
+    if(!(i>263&&i<273)){
+        var angleInRadians = (i * Math.PI) / 180;
+        var newX = Math.cos(angleInRadians) * 25; // X-coordinate remains the same
+        var newY = 0; // Rotate around X-axis
+        var newZ = 0 + Math.sin(angleInRadians) * 25; // Translate along Z-axis
+        vertices.push(newX);
+        vertices.push(newY);
+        vertices.push(newZ);
+    }
 }
 
 for (let i = 0; i < 360; i++) {
-    if (i % 6 == 0) {
-        // new obj('./non-player asset/Park2/', 'tree_obj.obj', 'tree_mtl.mtl', 0.01, 0.02, 0.01, vertices[i*3], vertices[i*3+1]-0.01, vertices[i*3+2], 0, 0, 0, Main.scene);
+    if (i % 3 == 0) {
+        new fbx('./non-player asset/Park2/', 'BlackBamboo.fbx', 0.05, 0.05, 0.05, vertices[(3 * i) + 2], vertices[(3 * i) + 1], vertices[(3 * i)], 0, 0, 0, Main.scene);
     }
 }
 new obj('./non-player asset/Park2/', 'beergarden_bench.obj', 'beergarden_bench.mtl', 0.5, 0.8, 0.7, 0, 0, 8, 0, 1.52, 0, Main.scene);
@@ -161,11 +171,11 @@ new obj('./non-player asset/Park2/', 'beergarden_bench.obj', 'beergarden_bench.m
 new obj('./non-player asset/Park2/', 'beergarden_bench.obj', 'beergarden_bench.mtl', 0.5, 0.8, 0.7, -4, 0, 8, 0, 1.52, 0, Main.scene);
 new obj('./non-player asset/Park2/', 'beergarden_bench.obj', 'beergarden_bench.mtl', 0.5, 0.8, 0.7, -4, 0, -8, 0, 1.52, 0, Main.scene);
 
-new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, 1 , 0.8, 0, 0, 0, 0, Main.scene, 20);
-new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, 3 , 0.8, 7, 0, 0, 0, Main.scene, 20);
-new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, 3 , 0.8, -7, 0, 0, 0, Main.scene, 20);
-new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, -7 , 0.8, 11, 0, 0, 0, Main.scene, 20);
-new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, -7 , 0.8, -11, 0, 0, 0, Main.scene, 20);
+new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, 1, 0.8, 0, 0, 0, 0, Main.scene, 20);
+new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, 3, 0.8, 7, 0, 0, 0, Main.scene, 20);
+new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, 3, 0.8, -7, 0, 0, 0, Main.scene, 20);
+new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, -7, 0.8, 11, 0, 0, 0, Main.scene, 20);
+new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, -7, 0.8, -11, 0, 0, 0, Main.scene, 20);
 new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, -17, 0.8, -2, 0, 0, 0, Main.scene, 20);
 new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, -17, 0.8, 2, 0, 0, 0, Main.scene, 20);
 new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, -14, 0.8, -2, 0, 0, 0, Main.scene, 20);
@@ -205,11 +215,14 @@ new obj('./non-player asset/Park2/', 'Chef.obj', 'Chef.mtl', 1.7, 1.7, 1.7, 6, 0
 
 
 
-
 new obj('./non-player asset/Park2/', 'otukue2.obj', 'otukue2.mtl', 1.8, 1.8, 1.8, 6, 0, 0, 0, 0, 0, Main.scene);
 new obj('./non-player asset/Park2/', 'cake.obj', 'cake.mtl', 3, 3, 3, 6, 0.9, 0, 0, 0, 0, Main.scene);
 
 new obj('./non-player asset/Park2/', 'Cylinder001.obj', 'Cylinder001.mtl', 5, 2, 2, 10, 0, 0, 0, -1.6, 0, Main.scene);
+
+
+
+
 
 //----------------------------------END OF ARSITEKTUR TAMAN--------------------------------------------------
 
@@ -239,7 +252,9 @@ const material = new THREE.MeshPhysicalMaterial({
     transmission: 1.0,   // Untuk membuat material seperti kaca
     roughness: 1.0,      // Halus
     ior: 1.7,            // Indeks bias
-    thickness: 0.5       // Ketebalan objek kaca
+    thickness: 0.5,       // Ketebalan objek kaca
+    castShadow: true,
+    receiveShadow: true
 });
 
 const geometry = new THREE.BoxGeometry(1, 1, 1);
