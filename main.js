@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import { Player, PlayerController, ThirdPersonCamera } from "./player.js";
-import { animatedFBX, fbx, obj, objLamp} from "./environment.js";
+import { animatedFBX, fbx, obj, objLamp } from "./environment.js";
 
 
 class Main {
@@ -46,7 +46,7 @@ class Main {
         plane.castShadow = true;
         this.scene.add(plane);
 
-        
+
         // var plane = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), new THREE.MeshPhongMaterial({ color: 0x00ff00 }));
         // plane.rotation.x = - Math.PI / 2;
         // plane.receiveShadow = true;
@@ -74,15 +74,12 @@ class Main {
 
         this.scene.add(directionalLight.target);
 
+        const thirdPersonCamera = new ThirdPersonCamera(this.camera, new THREE.Vector3(-5, 2, 0), new THREE.Vector3(0, 0, 0));
+
+        // Then create the PlayerController instance with the ThirdPersonCamera instance
+        const playerController = new PlayerController(thirdPersonCamera);
         // ThirdPersonCamera
-        this.player = new Player(
-            new ThirdPersonCamera(
-                this.camera, new THREE.Vector3(-5, 2, 0), new THREE.Vector3(0, 0, 0)
-            ),
-            new PlayerController(),
-            this.scene,
-            10
-        );
+        this.player = new Player(thirdPersonCamera, playerController, this.scene, 10);
 
 
 
@@ -124,12 +121,12 @@ new obj('./non-player asset/Park2/', 'o5950.obj', 'o5950.mtl', 1.3, 1, 1.5, 0, 0
 new obj('./non-player asset/Park2/', 'o5950.obj', 'o5950.mtl', 1.3, 1, 1.5, 0, 0, -7.3, 0, 0, 0, Main.scene);
 new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, 10, 0, 7, 0, 0, 0, Main.scene, 20);
 new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, -5, 0, 7, 0, 0, 0, Main.scene, 20);
-new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, 10 , 0, -7, 0, 0, 0, Main.scene, 10);
+new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, 10, 0, -7, 0, 0, 0, Main.scene, 10);
 new objLamp('./non-player asset/Park2/', 'streetLamp.obj', 'streetLamp.mtl', 0.2, 0.2, 0.2, -5, 0, -7, 0, 0, 0, Main.scene, 20);
 new fbx('./non-player asset/Park1/Garden Lamp/', 'GardenLamp1.fbx', 0.13, 0.13, 0.13, 4, 0.5, 3, 0, 0, 0, Main.scene);
 new fbx('./non-player asset/grasses/', 'grass_03.fbx', 1.3, 1, 1.5, -4, 0, 5, 0, 4.7, 0, Main.scene);
-var npc = new animatedFBX('./resources/Action Adventure Pack/','CH46_nonPBR.fbx', 0.01, 4.8,0.2,-0.5,0,-20.5,0,Main.scene, './resources/Action Adventure Pack/', 'SitMirror.fbx')
-var npc2 = new animatedFBX('./resources/Action Adventure Pack/','CH46_nonPBR.fbx', 0.01, 4.8,0.2,0.5,0,-20.5,0,Main.scene, './resources/Action Adventure Pack/', 'SitMirror.fbx');
+var npc = new animatedFBX('./resources/Action Adventure Pack/', 'CH46_nonPBR.fbx', 0.01, 4.8, 0.2, -0.5, 0, -20.5, 0, Main.scene, './resources/Action Adventure Pack/', 'SitMirror.fbx')
+var npc2 = new animatedFBX('./resources/Action Adventure Pack/', 'CH46_nonPBR.fbx', 0.01, 4.8, 0.2, 0.5, 0, -20.5, 0, Main.scene, './resources/Action Adventure Pack/', 'SitMirror.fbx');
 
 //Set lampu light
 // var PointLight = new THREE.PointLight(0xFFAA66, 20, 10, Math.PI / 2.2, 0.1, 0.6);
@@ -152,8 +149,8 @@ for (let i = 0; i < 360; i++) {
     vertices.push(newZ);
 }
 for (let i = 0; i < 360; i++) {
-    if(i%10 == 0){
-        var bambu =  new fbx('./non-player asset/Park1/Bamboo/', 'BlackBamboo.fbx', 0.03, 0.03, 0.03, vertices[i*3], vertices[i*3+1], vertices[i*3+2], 0, 0, 0, Main.scene);
+    if (i % 10 == 0) {
+        var bambu = new fbx('./non-player asset/Park1/Bamboo/', 'BlackBamboo.fbx', 0.03, 0.03, 0.03, vertices[i * 3], vertices[i * 3 + 1], vertices[i * 3 + 2], 0, 0, 0, Main.scene);
     }
 }
 
