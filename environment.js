@@ -94,10 +94,18 @@ export class darkObj {
                                 child.receiveShadow = false;
                             }
                         });
-                    });
-    };
-}
 
+                        sceneFromMain.add(object);
+                        object.scale.set(radX, radY, radZ);
+                        object.position.set(x, y, z);
+                        object.rotation.x = rotX;
+                        object.rotation.y = rotY;
+                        object.rotation.z = rotZ;
+
+                    }, onProgress);
+
+            });
+    }
 }
 
 class SMDLoader extends THREE.Loader {

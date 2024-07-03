@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import { Player, PlayerController, ThirdPersonCamera } from "./player.js";
-import { darkObj, fbx, obj, objLamp, SMDModel } from "./environment.js";
+import { darkObj, fbx, obj, objLamp, SMDModel, darkObj } from "./environment.js";
 
 
 class Main {
