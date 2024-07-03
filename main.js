@@ -233,10 +233,10 @@ function detectCollisions() {
             // We hit a solid object! Stop all movements.
             // console.log("Collision detected!");
 
-            if (bounds.xMin <= collisions[index].xMax && bounds.xMax>=collisions[index].xMax) {
-                // collisions[index].canMoveXLess = false;
-                // Main.player.canMoveXLess = false;
-                // continue;
+            if (bounds.xMin <= collisions[index].xMax) {
+                collisions[index].canMoveXLess = false;
+                Main.player.canMoveXLess = false;
+                continue;
                 console.log("kanan")
             }
 
