@@ -108,6 +108,102 @@ export class darkObj {
     }
 }
 
+export class fbx {
+    constructor(path, FBXFile, radX, radY, radZ, x, y, z, rotX, rotY, rotZ, sceneFromMain) {
+        this.loadModel(path, FBXFile, radX, radY, radZ, x, y, z, rotX, rotY, rotZ, sceneFromMain);
+    }
+
+    loadModel(path, FBXFile, radX, radY, radZ, x, y, z, rotX, rotY, rotZ, sceneFromMain) {
+        var loader = new FBXLoader();
+        loader.setPath(path);
+        loader.load(FBXFile, (fbx) => {
+            fbx.scale.setScalar(0.01);
+            fbx.traverse(c => {
+                c.castShadow = true;
+                c.receiveShadow = true;
+                c.scale.set(radX, radY, radZ);
+                c.position.set(x, y, z);
+                c.rotation.x = rotX;
+                c.rotation.y = rotY;
+                c.rotation.z = rotZ;
+            });
+            this.mesh = fbx;
+            sceneFromMain.add(this.mesh);
+            this.mesh.rotation.y += Math.PI / 2;
+
+            this.mixer = new THREE.AnimationMixer(this.mesh);
+        });
+
+    }
+}
+
+export class animatedFBX {
+    constructor(path, FBXFile, scalar, x, y, z, rotX, rotY, rotZ, sceneFromMain, animationPath, animationFile) {
+        this.animations = {};  // Store animations
+        this.mixer = null;  // Animation mixer
+        this.clock = new THREE.Clock();  // Clock for animation
+        this.loadModelAnimated(path, FBXFile, scalar, x, y, z, rotX, rotY, rotZ, sceneFromMain, animationPath, animationFile);
+    }
+
+    loadModelAnimated(path, FBXFile, scalar = 0.01, x, y, z, rotX, rotY, rotZ, sceneFromMain, animationPath, animationFile) {
+        var loader = new FBXLoader();
+        loader.setPath(path);
+        loader.load(FBXFile, (fbx) => {
+            fbx.scale.setScalar(scalar);
+            fbx.traverse(c => {
+                c.castShadow = true;
+                c.receiveShadow = true;
+            });
+            this.mesh = fbx;
+            this.mesh.rotation.y += Math.PI / 2;
+            this.mesh.position.set(x, y, z);
+            this.mesh.rotation.x = rotX;
+            this.mesh.rotation.y = rotY;
+            this.mesh.rotation.z = rotZ;
+
+            this.mixer = new THREE.AnimationMixer(this.mesh);
+
+            // Load default animation
+            this.loadAnimation(animationPath, animationFile);
+
+            sceneFromMain.add(this.mesh);
+        });
+    }
+
+    loadAnimation(path, FBXFile) {
+        const loader = new FBXLoader();
+        loader.setPath(path);
+        loader.load(FBXFile, (fbx) => {
+            const clip = fbx.animations[0];
+            const action = this.mixer.clipAction(clip);
+            action.play();
+            this.animations[FBXFile] = {
+                clip: clip,
+                action: action,
+            };
+        });
+    }
+
+    playAnimation(name) {
+        if (this.animations[name]) {
+            this.animations[name].action.play();
+        }
+    }
+
+    stopAnimation(name) {
+        if (this.animations[name]) {
+            this.animations[name].action.stop();
+        }
+    }
+
+    update() {
+        const delta = this.clock.getDelta();
+        if (this.mixer) {
+            this.mixer.update(delta);
+        }
+    }
+}
+
 class SMDLoader extends THREE.Loader {
     constructor(manager) {
         super(manager);
