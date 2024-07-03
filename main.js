@@ -268,9 +268,6 @@ function detectCollisions() {
                     // playerPosition.x = collisions[index].xMax;
                     // console.log("1");
                     // console.log("nubrukkk")
-                    
-                    playerPosition.z += 0.3;
-                    console.log("HHHHHAAAHDWUHABWIUDW:AIBUD")
                     Main.player.canMoveXLess = false;
                     collisions[index].canMoveXLess = false;
                     continue;
@@ -283,7 +280,6 @@ function detectCollisions() {
                 Main.player.canMoveXLess = true;
             }
         }
-
         
         
         // if(bounds.xMin <= collisions[index].xMax && bounds.xMax >= collisions[index].xMin) 
